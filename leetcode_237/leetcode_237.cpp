@@ -1,7 +1,26 @@
 // leetcode_237.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+// https://leetcode.com/problems/delete-node-in-a-linked-list/
+// Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
+//The linked list will have at least two elements.
+//All of the nodes' values will be unique.
+//The given node will not be the tailand it will always be a valid node of the linked list.
+//Do not return anything from your function.
 #include <iostream>
+using namespace std;
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+ 
+class Solution {
+public:
+	void deleteNode(ListNode* node) {
+		node->val = node->next->val;
+		node->next = node->next->next;
+	}
+};
 
 int main()
 {
