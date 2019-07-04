@@ -1,20 +1,29 @@
 // leetcode_832.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// https://leetcode.com/problems/flipping-an-image/
+//Given a binary matrix A, we want to flip the image horizontally, then invert it, and return the resulting image.
 //
+//To flip an image horizontally means that each row of the image is reversed.For example, flipping[1, 1, 0] horizontally results in[0, 1, 1].
+//
+//To invert an image means that each 0 is replaced by 1, and each 1 is replaced by 0. For example, inverting[0, 1, 1] results in[1, 0, 0].
 
 #include <iostream>
+#include <vector>
+using namespace std;
+
+
+class Solution {
+public:
+	vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A) {
+		int len = A.size();
+		vector<vector<int>> B(len, vector<int>(len));
+		for (int i = 0; i < len; i++)
+			for (int j = 0; j < len; j++)
+				B[i][j] = !A[i][len - 1 - j];
+		return B;
+	}
+};
 
 int main()
 {
     std::cout << "Hello World from 832!\n";
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
