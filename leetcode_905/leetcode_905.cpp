@@ -24,17 +24,17 @@ public:
 		//return result;
 
 		// v2: now it's much faster
-		vector<int> even(0);
-		vector<int> odd(0);
-		int len = A.size();
-		for (int i = 0; i < len; i++) {
-			if (A[i] % 2 == 0)
-				even.push_back(A[i]);
-			else
-				odd.push_back(A[i]);
-		}
-		even.insert(even.end(), odd.begin(), odd.end());
-		return even;
+		//vector<int> even(0);
+		//vector<int> odd(0);
+		//int len = A.size();
+		//for (int i = 0; i < len; i++) {
+		//	if (A[i] % 2 == 0)
+		//		even.push_back(A[i]);
+		//	else
+		//		odd.push_back(A[i]);
+		//}
+		//even.insert(even.end(), odd.begin(), odd.end());
+		//return even;
 
 		// v3: slower than v2...
 		//vector<int> arr(5001, 0);
