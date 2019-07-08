@@ -108,6 +108,20 @@ public:
 		//}
 		//return head;
 		
+		// v3: combine lists directly, then use bubble sort / insertion sort
+
+		// v4: every two list, we use mergeTwoLists
+		// it's much faster!!! faster than 94%! why?
+		vector<ListNode*> tmp;
+		for (int i = 0; i < numOfList; i+=2) {
+			if ((i + 1) >= numOfList) {
+				tmp.push_back(lists[i]);
+			}
+			else {
+				tmp.push_back(mergeTwoLists(lists[i], lists[i + 1]));
+			}
+		}
+		return mergeKLists(tmp);
 	}
 };
 
