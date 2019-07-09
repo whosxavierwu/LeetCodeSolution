@@ -18,6 +18,8 @@ public:
 		int mid = start;
 		while (start <= end) {
 			mid = (start + end) / 2;
+			// to avoid overflow: 
+			//mid = start + (end - start) / 2;
 			if (nums[mid] == target)
 				return mid;
 			else if (nums[mid] < target)
