@@ -8,47 +8,44 @@ using namespace std;
 class Solution {
 public:
 	vector<int> majorityElement(vector<int>& nums) {
-		float vote = 0.0;
-		int key = 0;
-		int tmp = 0;
-		vector<int> result(0);
+		// v1: Boyer-Moore Majority Vote; faster than 94%
 		int len = nums.size();
-		
-		key = nums[0];
+		int vote1 = 0, vote2 = 0;
+		int candidate1 = 0, candidate2 = 1;  // two candidate must be different
 		for (int i = 0; i < len; ++i) {
-			if (key == nums[i])
-				vote += 1.5;
-			else
-				vote -= 1.0;
-			if (vote <= 0.0) {
-				key = nums[i];
-				vote = 1.5;
+			if (nums[i] == candidate1)  // assentor of cand1
+				vote1++;
+			else if (nums[i] == candidate2)  // assentor of cand2
+				vote2++;
+			// NOTE: cand2 isn't consider as a dissenter to cand1!!! 
+			else if (vote1 == 0) {  //  dissenter to replace cand1
+				candidate1 = nums[i];
+				vote1 = 1;
 			}
-		}
-		if (vote > 0)
-			result.push_back(key);
-
-		if (!result.empty()) {
-			tmp = result[0];
-			vote = 0.0;
-			for (int i = 0; i < len; ++i)
-				if (nums[i] != tmp) {
-					key = nums[i];
-					break;
-				}
-			for (int i = 0; i < len; ++i) {
-				if (key == nums[i])
-					vote += 1.5;
-				else
-					vote -= 1.0;
-				if (vote <= 0.0) {
-					key = nums[i];
-					vote = 1.5;
-				}
+			else if (vote2 == 0) {  // dissenter to replace cand2
+				candidate2 = nums[i];
+				vote2 = 1;
 			}
-			if (vote > 0)
-				result.push_back(key);
+			else {  // dissenter but not enough to replace cand1 or cand2
+				vote1--;
+				vote2--;
+			}
+		} // what do vote mean now ???
+		// lets check if two candidate are corrected
+		// but why we need round 2??? can we simply use vote1 & vote2 after round1?
+		vote1 = 0;
+		vote2 = 0;
+		for (int i = 0; i < len; ++i) {
+			if (nums[i] == candidate1)
+				vote1++;
+			else if (nums[i] == candidate2)
+				vote2++;
 		}
+		vector<int> result(0);
+		if (vote1 > len / 3)
+			result.push_back(candidate1);
+		if (vote2 > len / 3)
+			result.push_back(candidate2);
 		return result;
 	}
 };
