@@ -51,22 +51,46 @@ public:
 		// f[k, i] = max(f[k, i-1], prices[i] - prices[j] + f[k-1, j]) {j in [0, i-1]}
 		//         = max( f[k, i-1], prices[i] + max(f[k-1, j] - prices[j]) )
 		// f[k, 0] = f[0, i] = 0
-		int len = prices.size();
-		if (len <= 1)
-			return 0;
-		int K = 2;  // at most K transactions
-		int profit = 0;
-		vector<vector<int>> f(K+1, vector<int>(len, 0));
-		for (int k = 1; k <= K; ++k) {
-			// use tmpMax to find out max(f[k-1, j] - prices[j]) {j in [0,i-1]}
-			int tmpMax = f[k - 1][0] - prices[0];
-			for (int i = 1; i < len; ++i) {
-				f[k][i] = fmax(f[k][i-1], prices[i] + tmpMax);
-				tmpMax = fmax(f[k - 1][i] - prices[i], tmpMax);
-				profit = fmax(f[k][i], profit);
+		//int len = prices.size();
+		//if (len <= 1)
+		//	return 0;
+		//int K = 2;  // at most K transactions
+		//int profit = 0;
+		//vector<vector<int>> f(K+1, vector<int>(len, 0));
+		//for (int k = 1; k <= K; ++k) {
+		//	// use tmpMax to find out max(f[k-1, j] - prices[j]) {j in [0,i-1]}
+		//	int tmpMax = f[k - 1][0] - prices[0];
+		//	for (int i = 1; i < len; ++i) {
+		//		f[k][i] = fmax(f[k][i-1], prices[i] + tmpMax);
+		//		tmpMax = fmax(f[k - 1][i] - prices[i], tmpMax);
+		//		profit = fmax(f[k][i], profit);
+		//	}
+		//}
+		//return profit;
+
+		// v4
+		//int K = 2;
+		//vector<int> profitBuy(K+1, INT_MIN);
+		//vector<int> profitSell(K+1, 0);
+		//for (int price : prices) {  
+		//	for (int k = K; k >= 1; --k) {
+		//		profitSell[k] = fmax(profitBuy[k] + price, profitSell[k]);
+		//		profitBuy[k] = fmax(profitSell[k - 1] - price, profitBuy[k]);
+		//	}
+		//}
+		//return profitSell[K];
+
+		// v5
+		int K = 2;
+		vector<int> profitBuy(K + 1, INT_MIN);
+		vector<int> profitSell(K + 1, 0);
+		for (int price : prices) {
+			for (int k = 1; k <= K; ++k) {
+				profitBuy[k] = fmax(profitSell[k - 1] - price, profitBuy[k]);
+				profitSell[k] = fmax(profitBuy[k] + price, profitSell[k]);
 			}
 		}
-		return profit;
+		return profitSell[K];
 	}
 };
 
