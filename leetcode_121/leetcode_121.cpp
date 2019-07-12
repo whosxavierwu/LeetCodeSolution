@@ -1,5 +1,6 @@
 // leetcode_121.cpp : This file contains the 'main' function. Program execution begins and ends there.
 // Best time to buy and sell stock; find out the max profit
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock
 
 #include <iostream>
 #include <vector>
@@ -36,11 +37,38 @@ public:
 		//return maxProfit;
 
 		// v2: faster than 14.44% 
+		//int len = prices.size();
+		//if (len <= 1)
+		//	return 0;
+		//vector<int> prevResult = findMaxProfit(prices, 0, len - 1);
+		//return prevResult[1];
+
+		// v3: faster than 78%
 		int len = prices.size();
+		int minprice = 0;
+		int profit = 0;
 		if (len <= 1)
 			return 0;
-		vector<int> prevResult = findMaxProfit(prices, 0, len - 1);
-		return prevResult[1];
+
+		if (prices[1] > prices[0]) {
+			minprice = prices[0];
+			profit = prices[1] - prices[0];
+		}
+		else {
+			minprice = prices[1];
+			profit = 0;
+		}
+
+		for (int i = 2; i < len; i++) {
+			int tmp = prices[i] - minprice;
+			if (tmp < 0)
+				minprice = prices[i];
+			if (profit < tmp)
+				profit = tmp;
+		}
+
+		return profit;
+
 	}
 };
 
