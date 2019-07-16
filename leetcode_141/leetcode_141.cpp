@@ -16,7 +16,18 @@ struct ListNode {
 class Solution {
 public:
 	bool hasCycle(ListNode* head) {
-
+		// v1: faster than 80.38% 
+		ListNode* step1 = head;
+		ListNode* step2 = head;
+		while ((step1 != NULL) && (step2 != NULL)) {
+			step1 = step1->next;
+			step2 = step2->next;
+			if (step1 == NULL || step2 == NULL) break;
+			step2 = step2->next;
+			if (step1 == step2)
+				return true;
+		}
+		return false;
 	}
 };
 
