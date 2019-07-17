@@ -45,25 +45,49 @@ public:
 		//return count;
 
 		// v2: it's slower!!! why???
-		deque<pair<int, int>> deq;
-		int count = 0;
-		for (int i = 0; i < len; ++i)
-			deq.push_back({i, i});
-		count += len;
-		for (int i = 1; i < len; ++i)
-			if (s[i] == s[i - 1]) {
-				deq.push_back({ i - 1, i });
+		//deque<pair<int, int>> deq;
+		//int count = 0;
+		//for (int i = 0; i < len; ++i)
+		//	deq.push_back({i, i});
+		//count += len;
+		//for (int i = 1; i < len; ++i)
+		//	if (s[i] == s[i - 1]) {
+		//		deq.push_back({ i - 1, i });
+		//		++count;
+		//	}
+		//while (!deq.empty()) {
+		//	pair<int, int> p = deq.front();
+		//	int left = p.first - 1;
+		//	int right = p.second + 1;
+		//	if (left >= 0 && right < len && s[left] == s[right]) {
+		//		deq.push_back({ left, right });
+		//		++count;
+		//	}
+		//	deq.pop_front();
+		//}
+		//return count;
+
+		// v3: faster than 93.12%
+		int count = 1;  // s[0]
+		int left = 0, right = 0;
+		for (int i = 1; i < len; ++i) {
+			// <s[i]>
+			++count;
+			// s[i-1], s[i], s[i+1]
+			for (left = i - 1, right = i + 1; left >= 0 && right < len; --left, ++right) {
+				if (s[left] != s[right])
+					break;
 				++count;
 			}
-		while (!deq.empty()) {
-			pair<int, int> p = deq.front();
-			int left = p.first - 1;
-			int right = p.second + 1;
-			if (left >= 0 && right < len && s[left] == s[right]) {
-				deq.push_back({ left, right });
+			// <s[i-1], s[i]>
+			if (s[i - 1] == s[i]) {
 				++count;
+				for (left = i - 2, right = i + 1; left >= 0 && right < len; --left, ++right) {
+					if (s[left] != s[right])
+						break;
+					++count;
+				}
 			}
-			deq.pop_front();
 		}
 		return count;
 	}
