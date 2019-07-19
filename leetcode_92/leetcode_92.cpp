@@ -21,7 +21,44 @@ struct ListNode {
 class Solution {
 public:
 	ListNode* reverseBetween(ListNode* head, int m, int n) {
-
+		// v1: faster than 100.00%
+		if (m == n)
+			return head;
+		ListNode* pTmpHead = NULL;
+		ListNode* pTmpTail = NULL;
+		ListNode* pBeforeM = NULL;
+		ListNode* pTmp = NULL;
+		int idx = 1;
+		for (ListNode* p = head; p != NULL; ++idx) {
+			if (idx == m-1)
+				pBeforeM = p;
+			if (idx < m) {
+				p = p->next;
+			}
+			else if (idx == m) {
+				pTmpTail = p;
+				pTmpHead = p;
+				p = p->next;
+			}
+			else if (idx < n) {
+				pTmp = p->next;
+				p->next = pTmpHead;
+				pTmpHead = p;
+				p = pTmp;
+			}
+			else if (idx == n) {
+				pTmp = p->next;
+				p->next = pTmpHead;
+				pTmpHead = p;
+				if (pBeforeM == NULL)  // in case m=1
+					head = pTmpHead;
+				else
+					pBeforeM->next = pTmpHead;
+				pTmpTail->next = pTmp;
+				break;
+			}
+		}
+		return head;
 	}
 };
 int main()
