@@ -26,6 +26,7 @@ The given list has length in the range [0, 10000].
 
 #include <iostream>
 #include <vector>
+#include <stack>
 using namespace std;
 
 struct ListNode {
@@ -57,38 +58,24 @@ public:
 		//}
 		//return result;
 
-		// v2: WA
-		vector<int> result;
-		ListNode* p = head;
-		while (p != NULL) {
-			if (p->next == NULL) {
-				result.push_back(0);
-				break;
+		// v2: faster than 90.44%, why ???
+		vector<int> result;  
+		// save the indices of elements that need to find next greater element.
+		stack<int> sta;  
+		for (ListNode* p = head; p != NULL; p = p->next) {
+			// pop from stack, until top-of-stack is >= cur value
+			while ((!sta.empty()) && (result[sta.top()] < p->val)) {
+				result[sta.top()] = p->val;
+				sta.pop();
 			}
-			int cnt = 1;
-			ListNode* q = p->next;
-			while (q != NULL) {
-				if (q->val < p->val) {
-					++cnt;
-				}
-				else if (q->val == p->val) {
-					// todo error here
-					++cnt;
-				}
-				else {
-					for (int i = 0; i < cnt; ++i)
-						result.push_back(q->val);
-					p = q;
-					break;
-				}
-				q = q->next;
-			}
-			if (q == NULL) {
-				result.push_back(0);
-				p = p->next;
-			}
+			sta.push(result.size());
+			result.push_back(p->val);
 		}
-		
+		// reset 0 to all elements that have no next greater elements.
+		while (!sta.empty()) {
+			result[sta.top()] = 0;
+			sta.pop();
+		}
 		return result;
 	}
 };
