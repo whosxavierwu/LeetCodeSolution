@@ -42,6 +42,19 @@ public:
 			result.push_back(result[i - (1 << p)] + 1);
 		}
 		return result;
+
+		//// v4 faster than 52.98% 
+		//if (num == 0) return { 0 };
+		//vector<int> result(num+1);
+		//result[0] = 0;
+		//result[1] = 1;
+		//int p = 1;
+		//for (int i = 2; i <= num; ++i) {
+		//	if (i == (1 << (p + 1)))
+		//		++p;
+		//	result[i] = result[i - (1 << p)] + 1;
+		//}
+		//return result;
 	}
 };
 
