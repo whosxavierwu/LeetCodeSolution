@@ -11,6 +11,13 @@ struct ListNode {
 	ListNode(int x) : val(x), next(NULL) {}
 };
 
+struct TreeNode {
+	int val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
 ListNode* arr2llist(vector<int>& arr) {
 	int len = size(arr);
 	ListNode* tmp_node = new ListNode(arr[0]);
