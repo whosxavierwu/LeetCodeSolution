@@ -12,12 +12,33 @@ Output:
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
+	static bool funcLeft2Right(vector<int> p1, vector<int> p2) {
+		// from tall to short
+		return p1[0] > p2[0] || (p1[0] == p2[0] && p1[1] < p2[1]);
+	}
 	vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
-		// check the shortest people, then second shortest, ...
+		// v1: faster than 5.68% 
+		//sort(people.begin(), people.end(), [](vector<int> p1, vector<int> p2) {
+		//	return p1[0] > p2[0] || (p1[0] == p2[0] && p1[1] < p2[1]);
+		//});
+		//vector<vector<int>> sol;
+		//for (vector<int> person : people) {
+		//	sol.insert(sol.begin() + person[1], person);
+		//}
+		//return sol;
+
+		// v2 faster than 5.56% 
+		sort(people.begin(), people.end(), funcLeft2Right);
+		vector<vector<int>> result;
+		for (vector<int> p : people) {
+			result.insert(result.begin() + p[1], p);
+		}
+		return result;
 	}
 };
 int main()
