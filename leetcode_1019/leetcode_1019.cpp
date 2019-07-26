@@ -61,7 +61,7 @@ public:
 		// v2: faster than 90.44%, why ???
 		vector<int> result;  
 		// save the indices of elements that need to find next greater element.
-		stack<int> sta;  
+		stack<int> sta;
 		for (ListNode* p = head; p != NULL; p = p->next) {
 			// pop from stack, until top-of-stack is >= cur value
 			while ((!sta.empty()) && (result[sta.top()] < p->val)) {
