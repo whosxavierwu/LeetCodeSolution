@@ -7,22 +7,20 @@
 #include <unordered_map>
 using namespace std;
 
+// faster than 91.04%
 class Solution {
 public:
 	vector<string> subdomainVisits(vector<string>& cpdomains) {
 		unordered_map<string, int> mmap;
 		for (string& cpdomain: cpdomains) {
 			int idx = cpdomain.find(' ');
-			int cnt = stoi(cpdomain.substr(0, idx + 1));
-			string domain = cpdomain.substr(idx + 1, cpdomain.length());
-			mmap[domain] = cnt;
-			int pos = 0;
-			while (true) {
-				pos = domain.find('.', pos + 1);
-				if (pos == domain.npos) break;
-				string subdomain = domain.substr(pos + 1, domain.length());
-				mmap[subdomain] += cnt;
+			int cnt = stoi(cpdomain.substr(0, idx));
+			string domain = cpdomain.substr(idx + 1);
+			for (int i = 0; i < domain.length(); ++i) {
+				if (domain[i] == '.')
+					mmap[domain.substr(i + 1)] += cnt;
 			}
+			mmap[domain] += cnt;
 		}
 		vector<string> result;
 		for (auto iter = mmap.begin(); iter != mmap.end(); ++iter) {
