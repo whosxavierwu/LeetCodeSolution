@@ -23,13 +23,58 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 #include <string>
 using namespace std;
 
+// v1: faster than 100.00% , less than 88.72% 
 class Solution {
 public:
+	string decodeString(string& s, int left, int right, int times) {
+		if (left > right) return "";
+		if (left == right) return string(times, s[left]);
+		string singleStr = "";
+		// part 1: no repeation
+		int i = left; 
+		while (i <= right && !isdigit(s[i])) ++i;
+		singleStr += s.substr(left, i - left);
+		// part 2: has repeation
+		if (i <= right) {
+			// find out the numbers
+			int lDigit = i;
+			while (isdigit(s[i])) ++i;
+			int leftParenthesis = i;
+			int tmpTimes = stoi(s.substr(lDigit, leftParenthesis - lDigit));
+			// find out the right parenthesis
+			int lCnt = 0, rCnt = 0;
+			while (i <= right) {
+				if (s[i] == '[') ++lCnt;
+				else if (s[i] == ']') ++rCnt;
+				if (lCnt == rCnt && lCnt > 0)
+					break;
+				++i;
+			}
+			int rightParenthesis = i;
+			// add string between left & right parenthesis
+			singleStr += decodeString(s, leftParenthesis + 1, rightParenthesis - 1, tmpTimes);
+			// add the rest
+			singleStr += decodeString(s, rightParenthesis + 1, right, 1);
+		}
+		// repeat result
+		string result = "";
+		for (int i = 0; i < times; ++i)
+			result += singleStr;
+		return result;
+	}
 	string decodeString(string s) {
-
+		return decodeString(s, 0, s.length() - 1, 1);
 	}
 };
 int main()
 {
-    std::cout << "Hello World!\n";
+	Solution sol;
+	string s;
+	s = "3[a]2[bc]";
+	cout << sol.decodeString(s) << endl;
+	s = "3[a2[c]]";
+	cout << sol.decodeString(s) << endl;
+	s = "2[abc]3[cd]ef";
+	cout << sol.decodeString(s) << endl;
+	return 0;
 }
