@@ -19,13 +19,24 @@ Explanation: transactions = [buy, sell, cooldown, buy, sell]
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 class Solution {
 public:
 	int maxProfit(vector<int>& prices) {
-
+		// faster than 76.49% 
+		// ending buy or ending sell
+		int buy = INT_MIN, sell = 0, prev_sell = 0, prev_buy = 0;
+		for (int price : prices) {
+			prev_buy = buy;
+			buy = max(prev_sell - price, buy);
+			prev_sell = sell;
+			sell = max(prev_buy + price, sell);
+		}
+		return sell;
 	}
 };
+
 int main()
 {
     std::cout << "Hello World!\n";
