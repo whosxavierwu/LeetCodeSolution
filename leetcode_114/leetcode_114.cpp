@@ -15,8 +15,16 @@ struct TreeNode {
 
 class Solution {
 public:
+	TreeNode* doFlatten(TreeNode* root) {
+		TreeNode* leftEnd = doFlatten(root->left);
+		TreeNode* rightEnd = doFlatten(root->right);
+		leftEnd->right = root->right;
+		root->right = root->left;
+		root->left = NULL;
+		// todo
+	}
 	void flatten(TreeNode* root) {
-
+		doFlatten(root);
 	}
 };
 int main()
