@@ -20,23 +20,23 @@ You need to return the least number of intervals the CPU will take to finish all
 #include <algorithm>
 using namespace std;
 
-bool cmp(pair<char, int>& p1, pair<char, int>& p2) {
-	return p1.second > p2.second;
-}
 
 class Solution {
 public:
-	 
 	int leastInterval(vector<char>& tasks, int n) {
-		unordered_map<char, int> cntMap;
-		for (char& c : tasks) cntMap[c] += 1;
-		priority_queue<pair<int, char>, vector<pair<int, char>>, less<pair<int, char>>> pq;
-		for (auto iter = cntMap.begin(); iter != cntMap.end(); ++iter)
-			pq.push(make_pair(iter->second, iter->first));
-		while (!pq.empty()) {
-			break;
+		// v1: faster than 94.85% 
+		vector<int> taskCount(26);
+		for (char& task : tasks) taskCount[task - 'A']++;
+		sort(taskCount.begin(), taskCount.end());
+		int maxVal = taskCount[25] - 1;  // why -1?
+		int idleSlots = maxVal * n;
+		for (int i = 24; i >= 0 && taskCount[i] > 0; --i) {
+			// fill the idle slots
+			idleSlots -= min(taskCount[i], maxVal);
 		}
-		return 0;
+		int result = tasks.size();
+		if (idleSlots > 0) result += idleSlots;
+		return result;
 	}
 };
 int main()
