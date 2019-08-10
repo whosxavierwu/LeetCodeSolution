@@ -151,12 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\leetcode_121\leetcode_121.cpp" />
-    <ClCompile Include="..\leetcode_122\leetcode_122.cpp" />
-    <ClCompile Include="..\leetcode_123\leetcode_123.cpp" />
-    <ClCompile Include="..\leetcode_188\leetcode_188.cpp" />
-    <ClCompile Include="..\leetcode_309\leetcode_309.cpp" />
     <ClCompile Include="BuyAndSellStock.cpp" />
+    <ClCompile Include="leetcode_121.cpp" />
+    <ClCompile Include="leetcode_122.cpp" />
+    <ClCompile Include="leetcode_123.cpp" />
+    <ClCompile Include="leetcode_188.cpp" />
+    <ClCompile Include="leetcode_309.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
