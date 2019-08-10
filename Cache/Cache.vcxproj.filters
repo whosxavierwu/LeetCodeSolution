@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="leetcode_146.cpp">
+    <ClCompile Include="Cache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\leetcode_146\leetcode_146.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
