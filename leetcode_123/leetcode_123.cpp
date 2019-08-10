@@ -93,12 +93,12 @@ public:
 		return profitSell[K];
 	}
 };
-
-int main()
-{
-	vector<int> prices = { 3,3,5,0,0,3,1,4 };
-	Solution sol;
-	int profit = sol.maxProfit(prices);
-	cout << profit << endl;
-	return 0;
-}
+//
+//int main()
+//{
+//	vector<int> prices = { 3,3,5,0,0,3,1,4 };
+//	Solution sol;
+//	int profit = sol.maxProfit(prices);
+//	cout << profit << endl;
+//	return 0;
+//}
