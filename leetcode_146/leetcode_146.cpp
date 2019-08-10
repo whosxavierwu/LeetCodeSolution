@@ -17,18 +17,43 @@ Follow up:
 Could you do both operations in O(1) time complexity?
 */
 #include <iostream>
-class LRUCache {
-public:
-	LRUCache(int capacity) {
+#include <unordered_map>
+using namespace std;
 
+// v1: faster than 54.14% 
+class LRUCache {
+	// key: (value, iter)
+	unordered_map<int, pair<int, list<int>::iterator>> cache;
+	list<int> used;
+	int availCapacity;
+	void touch(unordered_map<int, pair<int, list<int>::iterator>>::iterator iter) {
+		int key = iter->first;
+		used.erase(iter->second.second);
+		used.push_front(key);
+		iter->second.second = used.begin();
+	}
+public:
+	LRUCache(int capacity): availCapacity(capacity) {
 	}
 
 	int get(int key) {
-
+		auto it = cache.find(key);
+		if (it == cache.end()) return -1;
+		touch(it);
+		return it->second.first;
 	}
 
 	void put(int key, int value) {
-
+		auto iter = cache.find(key);
+		if (iter != cache.end()) touch(iter);
+		else {
+			if (cache.size() == availCapacity) {
+				cache.erase(used.back());
+				used.pop_back();
+			}
+			used.push_front(key);
+		}
+		cache[key] = { value, used.begin() };
 	}
 };
 
