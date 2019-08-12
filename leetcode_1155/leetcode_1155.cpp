@@ -1,5 +1,5 @@
 // leetcode_1155.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// https://leetcode.com/problems/number-of-dice-rolls-with-target-sum/
 
 #include <iostream>
 #include <vector>
@@ -20,7 +20,7 @@ public:
 		//}
 		//return result % 1000000007;
 
-		// v2
+		// v2 todo
 		vector<vector<long>> dp(d + 1, vector<long>(target + 1));
 		for (int _f = 1; _f <= f; ++_f)
 			dp[1][_f] = 1;
