@@ -39,23 +39,34 @@ using namespace std;
 class Solution {
 public:
 	int maxRepOpt1(string text) {
-		vector<pair<int, int>> vec(26, { 0,0 });  // first: length of longest sustring, total occurance
+		// v1: faster than 97.51%, less than 100.00%
+		vector<pair<char, int>> vec;  // first: char, second: count
+		vector<int> totalCnt(26);
 		char prev = ' ';
 		int substrCnt = 0;
 		for (char& c : text) {
+			totalCnt[c - 'a'] += 1;
 			if (c != prev && prev != ' ') {
-				vec[prev - 'a'].first = max(vec[prev - 'a'].first, substrCnt);
+				vec.push_back(make_pair(prev, substrCnt));
 				substrCnt = 0;
 			}
 			substrCnt += 1;
-			vec[c - 'a'].second += 1;
 			prev = c;
 		}
-		int result = 0;
-		for (int i = 0; i < 26; ++i) {
-			result = max(result, vec[i].first + (vec[i].second > vec[i].first));
+		if (substrCnt > 0)
+			vec.push_back(make_pair(prev, substrCnt));
+		int maxSubLen = 0;
+		for (int i = 0; i < vec.size(); ++i) {
+			int curSubStrCnt = vec[i].second + 1;
+			int tmp = curSubStrCnt;
+			if (i >= 2 && vec[i - 1].second == 1 && vec[i - 2].first == vec[i].first)
+				tmp = max(tmp, curSubStrCnt + vec[i - 2].second);
+			if (i+2 < vec.size() && vec[i + 1].second == 1 && vec[i + 2].first == vec[i].first)
+				tmp = max(tmp, curSubStrCnt + vec[i + 2].second);
+			tmp = min(tmp, totalCnt[vec[i].first - 'a']);
+			if (tmp > maxSubLen) maxSubLen = tmp;
 		}
-		return result;
+		return maxSubLen;
 	}
 };
 
