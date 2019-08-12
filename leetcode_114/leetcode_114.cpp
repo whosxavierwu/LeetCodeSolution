@@ -15,18 +15,37 @@ struct TreeNode {
 
 class Solution {
 public:
-	TreeNode* doFlatten(TreeNode* root) {
-		TreeNode* leftEnd = doFlatten(root->left);
-		TreeNode* rightEnd = doFlatten(root->right);
-		leftEnd->right = root->right;
-		root->right = root->left;
-		root->left = NULL;
-		// todo
-	}
-	void flatten(TreeNode* root) {
-		doFlatten(root);
-	}
+    TreeNode* func(TreeNode* root) {
+        if (!root) return NULL;
+        TreeNode* lend = root;
+        TreeNode* rend = root;
+        if (root->left && root->right) {
+            lend = func(root->left);
+            rend = func(root->right);
+            lend->right = root->right;
+            root->right = root->left;
+            root->left = NULL;
+        }
+        else if (root->left) {
+            lend = func(root->left);
+            root->right = root->left;
+            root->left = NULL;
+            rend = lend;
+        }
+        else if (root->right) {
+            rend = func(root->right);
+        }
+        else {
+            rend = root;
+        }
+
+        return rend;
+    }
+    void flatten(TreeNode* root) {
+        func(root);
+    }
 };
+
 int main()
 {
     std::cout << "Hello World!\n";
