@@ -64,6 +64,40 @@ struct TreeNode {
 //};
 
 //v2: faster than 5.34%, less than 95.24%
+//class Solution {
+//public:
+//	TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+//		int len = preorder.size();
+//		if (len == 0) return NULL;
+//		if (len == 1) return new TreeNode(preorder.back());
+//		unordered_map<int, int> mmap;
+//		for (int i = 0; i < len; ++i)
+//			mmap[inorder[i]] = i;
+//		vector<TreeNode*> vec(len, NULL);
+//		vec[0] = new TreeNode(preorder[0]);
+//		for (int i = 0; i < len - 1; ++i) {
+//			int leftIdx = i;
+//			for (int j = i + 1; j < len && vec[j] == NULL; ++j) {
+//				if (mmap[preorder[j]] < mmap[preorder[i]]) {
+//					vec[j] = new TreeNode(preorder[j]);
+//					vec[i]->left = vec[j];
+//					leftIdx = j;
+//					break;
+//				}
+//			}
+//			for (int j = leftIdx + 1; j < len && vec[j] == NULL; ++j) {
+//				if (mmap[preorder[i]] < mmap[preorder[j]]) {
+//					vec[j] = new TreeNode(preorder[j]);
+//					vec[i]->right = vec[j];
+//					break;
+//				}
+//			}
+//		}
+//		return vec[0];
+//	}
+//};
+
+// v3 faster than 5.34%...
 class Solution {
 public:
 	TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
@@ -75,27 +109,31 @@ public:
 			mmap[inorder[i]] = i;
 		vector<TreeNode*> vec(len, NULL);
 		vec[0] = new TreeNode(preorder[0]);
-		for (int i = 0; i < len - 1; ++i) {
-			int leftIdx = i;
-			for (int j = i + 1; j < len && vec[j] == NULL; ++j) {
-				if (mmap[preorder[j]] < mmap[preorder[i]]) {
-					vec[j] = new TreeNode(preorder[j]);
-					vec[i]->left = vec[j];
-					leftIdx = j;
-					break;
+		for (int rootIdx = 0; rootIdx < len - 1; ++rootIdx) {
+			int leftIdx = rootIdx + 1;
+			if (leftIdx < len && vec[leftIdx] == NULL) {
+				if (mmap[preorder[leftIdx]] < mmap[preorder[rootIdx]]) {
+					vec[leftIdx] = new TreeNode(preorder[leftIdx]);
+					vec[rootIdx]->left = vec[leftIdx];
+					for (int rightIdx = leftIdx + 1; rightIdx < len && vec[rightIdx] == NULL; ++rightIdx) {
+						if (mmap[preorder[rootIdx]] < mmap[preorder[rightIdx]]) {
+							vec[rightIdx] = new TreeNode(preorder[rightIdx]);
+							vec[rootIdx]->right = vec[rightIdx];
+							break;
+						}
+					}
 				}
-			}
-			for (int j = leftIdx + 1; j < len && vec[j] == NULL; ++j) {
-				if (mmap[preorder[i]] < mmap[preorder[j]]) {
-					vec[j] = new TreeNode(preorder[j]);
-					vec[i]->right = vec[j];
-					break;
+				else {
+					int rightIdx = leftIdx;
+					vec[rightIdx] = new TreeNode(preorder[rightIdx]);
+					vec[rootIdx]->right = vec[rightIdx];
 				}
 			}
 		}
 		return vec[0];
 	}
 };
+
 
 int main()
 {
