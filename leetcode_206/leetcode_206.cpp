@@ -11,7 +11,7 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
-// todo how about recursive version?
+// how about recursive version?
 class Solution {
 public:
 	ListNode* reverseList(ListNode* head) {
