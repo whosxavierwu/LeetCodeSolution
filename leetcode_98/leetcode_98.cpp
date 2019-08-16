@@ -1,5 +1,5 @@
 // leetcode_98.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/validate-binary-search-tree/
+// https://leetcode.com/problems/validate-binary-search-tree/
 /*
 Given a binary tree, determine if it is a valid binary search tree (BST).
 

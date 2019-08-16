@@ -1,5 +1,5 @@
 // leetcode_106.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
+// https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
 /*
 Given inorder and postorder traversal of a tree, construct the binary tree.
 
