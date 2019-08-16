@@ -27,20 +27,14 @@ class Solution {
 public:
 	vector<string> letterCombinations(string digits) {
 		int numOfDigits = digits.length();
-		int numOfComb = 1;
-		for (char digit : digits)
-			numOfComb *= mmap[digit].length();
-		// todo duplicate digit in digits?
-		vector<string> result(numOfComb, string(numOfDigits, ' '));
-		for (int digitIdx = 0; digitIdx < numOfDigits; ++digitIdx) {
-			string letters = mmap[digits[digitIdx]];
-			int letterLen = letters.length();
-			int letterIdx = 0;
-			for (int combIdx = 0; combIdx < numOfComb; ++combIdx) {
-				result[combIdx][digitIdx] = letters[letterIdx];
-				++letterIdx;
-				if (letterIdx >= letterLen) letterIdx = 0;
-			}
+		vector<string> result = letterCombinations(digits.substr(0, numOfDigits - 1));
+		string letters = mmap[digits[numOfDigits - 1]];
+		int numOfPrevResult = result.size();
+		for (int i = 0; i < numOfPrevResult; ++i) {
+			result[i].push_back(letters[0]);
+		}
+		for (int i = 1; i < letters.length(); ++i) {
+			
 		}
 		return result;
 	}
