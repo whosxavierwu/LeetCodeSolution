@@ -18,27 +18,31 @@ Although the above answer is in lexicographical order, your answer could be in a
 #include <unordered_map>
 using namespace std;
 
+// v1: faster than 59.59%
 class Solution {
 	unordered_map<char, string> mmap = { 
 		{'2', "abc"}, {'3', "def"}, 
 		{'4', "ghi"}, {'5', "jkl"}, {'6', "mno"}, 
 		{'7', "pqrs"}, {'8', "tuv"}, {'9', "wxyz"} 
 	};
+	vector<string> result;
 public:
+	void backtrack(string combination, string next_digits) {
+		if (next_digits.length() == 0) 
+			result.push_back(combination);
+		else {
+			for (char letter : mmap[next_digits[0]]) {
+				backtrack(combination + letter, next_digits.substr(1));
+			}
+		}
+	}
 	vector<string> letterCombinations(string digits) {
-		int numOfDigits = digits.length();
-		vector<string> result = letterCombinations(digits.substr(0, numOfDigits - 1));
-		string letters = mmap[digits[numOfDigits - 1]];
-		int numOfPrevResult = result.size();
-		for (int i = 0; i < numOfPrevResult; ++i) {
-			result[i].push_back(letters[0]);
-		}
-		for (int i = 1; i < letters.length(); ++i) {
-			
-		}
+		if (digits.length() != 0) 
+			backtrack("", digits);
 		return result;
 	}
 };
+
 
 int main()
 {
