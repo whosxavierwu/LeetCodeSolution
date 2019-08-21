@@ -1,20 +1,44 @@
 // leetcode_200.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/number-of-islands/
-
+// https://leetcode.com/problems/number-of-islands/
+/*
+Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. 
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. 
+You may assume all four edges of the grid are all surrounded by water.
+*/
 #include <iostream>
+#include <vector>
+using namespace std;
+
+// v1: faster than 99.93% 
+class Solution {
+public:
+	void DFSErase(vector<vector<char>>& grid, const int& i, const int& j) {
+		// dfs erase lands
+		if (i < 0 || j < 0 || i >= grid.size() || j >= grid[i].size() || grid[i][j] != '1') return;
+		grid[i][j] = '0';
+		DFSErase(grid, i - 1, j);
+		DFSErase(grid, i + 1, j);
+		DFSErase(grid, i, j - 1);
+		DFSErase(grid, i, j + 1);
+	}
+	int numIslands(vector<vector<char>>& grid) {
+		int cnt = 0;
+		int N = grid.size(); 
+		if (N == 0) return 0;
+		int M = grid[0].size();
+		for (int i = 0; i < N; ++i) {
+			for (int j = 0; j < M; ++j) {
+				if (grid[i][j] == '1') {
+					DFSErase(grid, i, j);
+					cnt++;
+				}
+			}
+		}
+		return cnt;
+	}
+};
 
 int main()
 {
     std::cout << "Hello World!\n";
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
