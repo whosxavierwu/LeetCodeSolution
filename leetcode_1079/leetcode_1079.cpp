@@ -1,5 +1,5 @@
 // leetcode_1079.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// https://leetcode.com/problems/letter-tile-possibilities/
+// todo https://leetcode.com/problems/letter-tile-possibilities/
 /*
 You have a set of tiles, 
 where each tile has one letter tiles[i] printed on it.  
@@ -13,7 +13,6 @@ using namespace std;
 
 class Solution {
 public:
-	
 	int insertR2N(int n, int r) {
 		// insert r numbers to length n (n+1 slots)
 		if (n == 0) return 1;
@@ -38,9 +37,13 @@ public:
 		int prevMaxLen = 0;
 		for (int& curLetterCount : letterCount) {
 			for (int numOfLettersToInsert = 1; numOfLettersToInsert <= curLetterCount; ++numOfLettersToInsert) {
-				for (int prevLen = 0; prevLen <= prevMaxLen; ++prevLen) {
-					numOfPermuteGivenLen[prevLen + numOfLettersToInsert] += insertR2N(prevLen, numOfLettersToInsert);
+				for (int prevLen = 1; prevLen <= prevMaxLen; ++prevLen) {
+					//int tmp = numOfPermuteGivenLen[prevLen + numOfLettersToInsert];
+					//if (tmp == 0) tmp = 1;
+					//numOfPermuteGivenLen[prevLen + numOfLettersToInsert] = tmp * insertR2N(prevLen, numOfLettersToInsert);
+					numOfPermuteGivenLen[prevLen + numOfLettersToInsert] = numOfPermuteGivenLen[prevLen] * insertR2N(prevLen, numOfLettersToInsert);
 				}
+				numOfPermuteGivenLen[numOfLettersToInsert] += 1;
 			}
 			prevMaxLen += curLetterCount;
 		}
@@ -56,9 +59,8 @@ int main()
 {
 	Solution sol;
 	string s;
-	//s = "AAB";
-	//cout << sol.numTilePossibilities(s) << endl;
-	// todo 到C的时候就出问题了
+	s = "AAB";
+	cout << sol.numTilePossibilities(s) << endl;
 	s = "AAABBC";
 	cout << sol.numTilePossibilities(s) << endl;
 
