@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConstructBinaryTree.cpp" />
+    <ClCompile Include="leetcode_1008.cpp" />
     <ClCompile Include="leetcode_105.cpp" />
     <ClCompile Include="leetcode_106.cpp" />
   </ItemGroup>
