@@ -1,5 +1,5 @@
 // leetcode_1008.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+// https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
 /*
 Return the root node of a binary search tree that matches the given preorder traversal.
 

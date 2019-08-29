@@ -1,5 +1,5 @@
 // leetcode_763.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/partition-labels/
+// https://leetcode.com/problems/partition-labels/
 /*
 A string S of lowercase letters is given. 
 We want to partition this string into as many parts as possible 
