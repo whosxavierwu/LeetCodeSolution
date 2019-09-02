@@ -35,9 +35,10 @@ If 99% of all integer numbers from the stream are between 0 and 100, how would y
 #include <queue>
 using namespace std;
 
+// v1: 152 ms, faster than 85.85% 
 class MedianFinder {
-	priority_queue<int, vector<int>, less<int>()> lpq;
-	priority_queue<int, vector<int>, greater<int>()> rpq;
+	priority_queue<int, vector<int>, less<int>> lpq;
+	priority_queue<int, vector<int>, greater<int>> rpq;
 public:
 	/** initialize your data structure here. */
 	MedianFinder() {
@@ -45,11 +46,39 @@ public:
 	}
 
 	void addNum(int num) {
-		// todo working here 
+		if (lpq.empty())
+			lpq.push(num);
+		else if (rpq.empty()) {
+			if (num > lpq.top())
+				rpq.push(num);
+			else {
+				rpq.push(lpq.top());
+				lpq.pop();
+				lpq.push(num);
+			}
+		}
+		else if (num <= lpq.top())
+			lpq.push(num);
+		else
+			rpq.push(num);
+
+		while (lpq.size() > (1+rpq.size())) {
+			rpq.push(lpq.top());
+			lpq.pop();
+		}
+		while (rpq.size() > lpq.size()) {
+			lpq.push(rpq.top());
+			rpq.pop();
+		}
 	}
 
 	double findMedian() {
-
+		if (lpq.size() == rpq.size())
+			return (lpq.top() + rpq.top()) / 2.0;
+		else if (lpq.size() > rpq.size())
+			return lpq.top();
+		else
+			return rpq.top();
 	}
 };
 
@@ -62,5 +91,37 @@ public:
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	MedianFinder* obj = new MedianFinder();
+	//obj->addNum(1);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(2);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(3);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(4);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(5);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(6);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(7);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(8);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(9);
+	//cout << obj->findMedian() << endl;
+	//obj->addNum(10);
+	//cout << obj->findMedian() << endl;
+
+	obj->addNum(-1);
+	cout << obj->findMedian() << endl;
+	obj->addNum(-2);
+	cout << obj->findMedian() << endl;
+	obj->addNum(-3);
+	cout << obj->findMedian() << endl;
+	obj->addNum(-4);
+	cout << obj->findMedian() << endl;
+	obj->addNum(-5);
+	cout << obj->findMedian() << endl;
 }
+
