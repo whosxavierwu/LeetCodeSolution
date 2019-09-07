@@ -1,5 +1,5 @@
 // leetcode_300.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/longest-increasing-subsequence/
+// https://leetcode.com/problems/longest-increasing-subsequence/
 /*
 Given an unsorted array of integers, find the length of longest increasing subsequence.
 
@@ -17,12 +17,47 @@ Follow up: Could you improve it to O(n log n) time complexity?
 
 #include <iostream>
 #include <vector>
+#include <stack>
+#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
+	// v1: TLE
+	//int lengthOfLIS(vector<int>& nums, int prevMax, int cur) {
+	//	if (cur == nums.size()) return 0;
+	//	int taken = (nums[cur] > prevMax) ? (1 + lengthOfLIS(nums, nums[cur], cur + 1)) : 0;
+	//	int nottaken = lengthOfLIS(nums, prevMax, cur + 1);
+	//	return max(taken, nottaken);
+	//}
 	int lengthOfLIS(vector<int>& nums) {
+		// v2: 36 ms, faster than 57.84% 
+		//int len = nums.size();
+		//if (len == 0) return 0;
+		//vector<int> dp(len, 1);
+		//int maxLen = 1;
+		//for (int i = 1; i < len; ++i) {
+		//	for (int j = 0; j < i; ++j) {
+		//		if (nums[j] < nums[i] && (dp[j] + 1) > dp[i]) {
+		//			dp[i] = dp[j] + 1;
+		//		}
+		//	}
+		//	if (dp[i] > maxLen) 
+		//		maxLen = dp[i];
+		//}
+		//return maxLen;
 
+		// v3: 4 ms, faster than 90.44%
+		vector<int> vec;
+		int len = nums.size();
+		for (int i = 0; i < len; ++i) {
+			auto iter = lower_bound(vec.begin(), vec.end(), nums[i]);
+			if (iter == vec.end())
+				vec.push_back(nums[i]);
+			else
+				*iter = nums[i];
+		}
+		return vec.size();
 	}
 };
 
