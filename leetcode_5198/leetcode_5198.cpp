@@ -1,8 +1,9 @@
 // leetcode_5198.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/contest/weekly-contest-155/problems/ugly-number-iii/
+// https://leetcode.com/contest/weekly-contest-155/problems/ugly-number-iii/
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution {
@@ -22,15 +23,21 @@ public:
 	}
 
 	int nthUglyNumber(int n, int a, int b, int c) {
-		unsigned long long lcm1 = lcm(a, b);
-		lcm1 = lcm(lcm1, c);
-		cout << lcm1 << endl;
-		unsigned long long count = lcm1 / a + lcm1 / b + lcm1 / c - lcm1 / lcm(a, b) - lcm1 / lcm(a, c) - lcm1 / lcm(b, c) + 1;
-		cout << count << endl;
-		//int result = (n / count) * lcm1;
-		//result += nthUglyNumber(n % count, a, b, c);
-		//return result;
-		return count;
+		unsigned long long lcmAB = lcm(a, b);
+		unsigned long long lcmAC = lcm(a, c);
+		unsigned long long lcmBC = lcm(b, c);
+		unsigned long long lcmABC = lcm(lcmAB, c);
+		// Find the least integer k that satisfies the condition F(k) >= n
+		int low = 1, high = 2 * (int)1e9;
+		while (low < high) {
+			int mid = low + (high - low) / 2;
+			int cnt = mid / a + mid / b + mid / c - mid / lcmAB - mid / lcmAC - mid / lcmBC + mid / lcmABC;
+			if (cnt < n)
+				low = mid + 1;
+			else
+				high = mid;
+		}
+		return low;
 	}
 };
 
