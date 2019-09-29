@@ -1,5 +1,5 @@
 // leetcode_cn_5.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// https://leetcode-cn.com/contest/season/2019-fall/problems/coin-bonus/
+// todo https://leetcode-cn.com/contest/season/2019-fall/problems/coin-bonus/
 
 #include <iostream>
 #include <vector>
