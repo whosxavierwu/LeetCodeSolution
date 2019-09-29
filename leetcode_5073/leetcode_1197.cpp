@@ -1,5 +1,5 @@
 // leetcode_5073.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/contest/biweekly-contest-9/problems/minimum-knight-moves/
+// https://leetcode.com/contest/biweekly-contest-9/problems/minimum-knight-moves/
  
 #include <iostream>
 #include <vector>

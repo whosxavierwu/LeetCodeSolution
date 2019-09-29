@@ -1,5 +1,5 @@
 // leetcode_cn_4.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo leetcode_cn_4
+// leetcode_cn_4
 
 #include <iostream>
 
