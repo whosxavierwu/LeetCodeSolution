@@ -32,11 +32,54 @@ using namespace std;
 
 class Solution {
 public:
-	vector<int> findAnagrams(string s, string p) {
+	bool isAnagram(string s, string p) {
+		if (s.length() != p.length())
+			return false;
+		vector<int> vec(26);
+		for (char ch : p)
+			vec[ch - 'a']++;
+		for (char ch : s) {
+			vec[ch - 'a']--;
+			if (vec[ch - 'a'] < 0)
+				return false;
+		}
+		return true;
+	}
 
+	vector<int> findAnagrams(string s, string p) {
+		// v1: 1812 ms, faster than 5.03%
+		//int sLen = s.length(), pLen = p.length();
+		//vector<int> result;
+		//for (int i = 0; (i + pLen) <= sLen; ++i) {
+		//	if (isAnagram(s.substr(i, pLen), p))
+		//		result.push_back(i);
+		//}
+		//return result;
+
+		int sLen = s.length(), pLen = p.length();
+		if (sLen < pLen) return {};
+
+		vector<int> pVec(26);
+		vector<int> sVec(26);
+		for (char c : p)
+			pVec[c - 'a']++;
+
+		for (int i = 0; (i + pLen) <= sLen; ++i) {
+
+		}
 	}
 };
 int main()
 {
-    std::cout << "Hello World!\n";
+	Solution sol;
+	vector<int> result; 
+	result = sol.findAnagrams("cbaebabacd", "abc");
+	for (int a : result) cout << a << " ";
+	cout << endl;
+
+	result = sol.findAnagrams("abab", "ab");
+	for (int a : result) cout << a << " ";
+	cout << endl;
+
+	return 0;
 }
