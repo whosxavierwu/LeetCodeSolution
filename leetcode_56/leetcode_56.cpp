@@ -17,8 +17,30 @@ using namespace std;
 
 class Solution {
 public:
+	int findBigBoss(int x, vector<int>& bossOf) {
+		return bossOf[x] == x ? x : findBigBoss(bossOf[x], bossOf);
+	}
 	vector<vector<int>> merge(vector<vector<int>>& intervals) {
+		int numOfIntervals = intervals.size();
+		if (numOfIntervals <= 1) return intervals;
 
+		vector<int> bossOf;
+		for (int i = 0; i < numOfIntervals; ++i)
+			bossOf.push_back(i);
+		
+		for (int i = 0; i < numOfIntervals; ++i) {
+			for (int j = i + 1; j < numOfIntervals; ++j) {
+				if (overlap(i, j)) {
+					int boss1 = findBigBoss(i, bossOf);
+					int boss2 = findBigBoss(j, bossOf);
+					if (boss1 != boss2) {
+						// merge two groups 
+						bossOf[boss2] = boss1;
+					}
+				}
+			}
+		}
+			
 	}
 };
 int main()
