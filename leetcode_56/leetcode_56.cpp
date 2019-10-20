@@ -1,5 +1,5 @@
 // leetcode_56.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/merge-intervals/
+// https://leetcode.com/problems/merge-intervals/
 /*
 Given a collection of intervals, merge all overlapping intervals.
 
@@ -13,34 +13,26 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 */
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
+
 
 class Solution {
 public:
-	int findBigBoss(int x, vector<int>& bossOf) {
-		return bossOf[x] == x ? x : findBigBoss(bossOf[x], bossOf);
-	}
 	vector<vector<int>> merge(vector<vector<int>>& intervals) {
-		int numOfIntervals = intervals.size();
-		if (numOfIntervals <= 1) return intervals;
-
-		vector<int> bossOf;
-		for (int i = 0; i < numOfIntervals; ++i)
-			bossOf.push_back(i);
-		
-		for (int i = 0; i < numOfIntervals; ++i) {
-			for (int j = i + 1; j < numOfIntervals; ++j) {
-				if (overlap(i, j)) {
-					int boss1 = findBigBoss(i, bossOf);
-					int boss2 = findBigBoss(j, bossOf);
-					if (boss1 != boss2) {
-						// merge two groups 
-						bossOf[boss2] = boss1;
-					}
-				}
+		// 16 ms, faster than 93.93% 
+		sort(intervals.begin(), intervals.end(), [](vector<int>& a, vector<int>& b) {return a[0] < b[0]; });
+		vector<vector<int>> result;
+		for (vector<int>& interval : intervals) {
+			if (result.empty() || result.back()[1] < interval[0]) {
+				result.push_back(interval);
+			}
+			else {
+				int len = result.size();
+				result[len - 1][1] = max(result[len - 1][1], interval[1]);
 			}
 		}
-			
+		return result;
 	}
 };
 int main()
