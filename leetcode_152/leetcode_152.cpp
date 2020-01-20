@@ -1,7 +1,8 @@
 // leetcode_152.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/maximum-product-subarray/
+// https://leetcode.com/problems/maximum-product-subarray/
 /*
-Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
+Given an integer array nums, find the contiguous subarray within an array (containing at least one number) 
+which has the largest product.
 
 Example 1:
 
@@ -17,12 +18,23 @@ Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 */
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-
+        // v1: 4 ms, faster than 89.24%
+        int n = nums.size();
+        int result = nums[0];
+        int imin = result, imax = result;
+        for (int i = 1; i < n; ++i) {
+            if (nums[i] < 0) swap(imax, imin);
+            imax = max(nums[i], imax * nums[i]);
+            imin = min(nums[i], imin * nums[i]);
+            result = max(result, imax);
+        }
+        return result;
     }
 };
 
