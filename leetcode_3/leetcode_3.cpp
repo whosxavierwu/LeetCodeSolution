@@ -1,5 +1,5 @@
 // leetcode_3.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/longest-substring-without-repeating-characters/
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
 /*
 Given a string, find the length of the longest substring without repeating characters.
 
@@ -24,12 +24,39 @@ Explanation: The answer is "wke", with the length of 3.
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
+        // v1: 8 ms, faster than 94.41% 
+        //vector<int> idxVec(256, -1);
+        //int maxLen = 0, start = -1;
+        //for (int i = 0; i < s.size(); ++i) {
+        //    start = max(start, idxVec[s[i]]);
+        //    idxVec[s[i]] = i;
+        //    maxLen = max(maxLen, i - start);
+        //}
+        //return maxLen;
 
+        // v2:  0 ms, faster than 100.00%
+        vector<int> vec(128, 0);
+        int begin = 0, end = 0, len = 0, counter = 0;
+        while (end < s.size()) {
+            if (vec[s[end]] > 0)
+                counter++;
+            vec[s[end]]++;
+            end++;
+            while (counter > 0) {
+                if (vec[s[begin]] > 1)
+                    counter--;
+                vec[s[begin]]--;
+                begin++;
+            }
+            len = max(len, end - begin);
+        }
+        return len;
     }
 };
 
