@@ -1,5 +1,5 @@
 // leetcode_438.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/find-all-anagrams-in-a-string/
+// https://leetcode.com/problems/find-all-anagrams-in-a-string/
 /*
 Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
 
@@ -56,17 +56,31 @@ public:
 		//}
 		//return result;
 
+		// v2: 36 ms, faster than 56.68%
+		// v3: 28 ms, faster than 94.19%
 		int sLen = s.length(), pLen = p.length();
 		if (sLen < pLen) return {};
-
+		vector<int> results;
 		vector<int> pVec(26);
-		vector<int> sVec(26);
-		for (char c : p)
-			pVec[c - 'a']++;
-
-		for (int i = 0; (i + pLen) <= sLen; ++i) {
-
+		for (char ch : p)
+			pVec[ch - 'a']++;
+		int left = 0, right = 0, head = 0, len = 0; 
+		int counter = pLen;
+		while (right < sLen) {
+			if (pVec[s[right] - 'a'] > 0)
+				counter--;
+			pVec[s[right] - 'a']--;
+			right++;
+			while (counter == 0) {
+				if (right - left == pLen)
+					results.push_back(left);
+				pVec[s[left] - 'a']++;
+				if (pVec[s[left] - 'a'] > 0) 
+					counter++;
+				left++;
+			}
 		}
+		return results;
 	}
 };
 int main()
