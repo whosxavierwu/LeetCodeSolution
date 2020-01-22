@@ -1,5 +1,5 @@
 // leetcode_322.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/coin-change/
+// https://leetcode.com/problems/coin-change/
 /*
 You are given coins of different denominations and a total amount of money amount. 
 Write a function to compute the fewest number of coins that you need to make up that amount. 
@@ -16,17 +16,32 @@ Input: coins = [2], amount = 3
 Output: -1
 Note:
 You may assume that you have an infinite number of each kind of coin.
-
-
 */
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class Solution {
 public:
     int coinChange(vector<int>& coins, int amount) {
+        // v1: 84 ms, faster than 17.21%
+        //vector<int> dp(amount + 1, -1);
+        //dp[0] = 0;
+        //for (int amt = 1; amt <= amount; ++amt)
+        //    for (int coin : coins)
+        //        if (amt >= coin && dp[amt - coin] != -1)
+        //            dp[amt] = dp[amt] > 0 ? min(dp[amt], dp[amt - coin] + 1) : dp[amt - coin] + 1;
+        //return dp[amount];
 
+        // v2  92 ms, faster than 14.20%
+        vector<int> dp(amount + 1, amount + 1);
+        dp[0] = 0;
+        for (int amt = 1; amt <= amount; ++amt)
+            for (int coin : coins)
+                if (amt >= coin)
+                    dp[amt] = min(dp[amt], dp[amt - coin] + 1);
+        return dp[amount] > amount ? -1 : dp[amount];
     }
 };
 
