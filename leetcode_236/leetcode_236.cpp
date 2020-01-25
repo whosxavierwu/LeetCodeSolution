@@ -1,5 +1,5 @@
 // leetcode_236.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 /*
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
 
@@ -25,6 +25,8 @@ p and q are different and both values will exist in the binary tree.
 */
 
 #include <iostream>
+#include <stack>
+#include <algorithm>
 using namespace std;
 
 struct TreeNode {
@@ -35,9 +37,59 @@ struct TreeNode {
 };
 
 class Solution {
+    //TreeNode* lca;
 public:
+    //bool recurseTree(TreeNode* cur, TreeNode* p, TreeNode* q) {
+    //    if (cur == NULL)
+    //        return false;
+    //    int left = recurseTree(cur->left, p, q);
+    //    int right = recurseTree(cur->right, p, q);
+    //    int mid = (cur == p || cur == q);
+    //    if (left + right + mid >= 2)
+    //        lca = cur;
+    //    return (left + right + mid > 0);
+    //}
 	TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        //// v1 36 ms, faster than 11.52% 
+        //recurseTree(root, p, q);
+        //return lca;
 
+        // v2  20 ms, faster than 76.21%
+        stack<pair<TreeNode*, int>> sta;
+        sta.push(make_pair(root, -1));
+        bool found_one_node = false;
+        TreeNode* lca = NULL;
+        TreeNode* next = NULL;
+        while (!sta.empty()) {
+            pair<TreeNode*, int> top = sta.top();
+            sta.pop();
+            TreeNode* cur = top.first;
+            int state = top.second;
+            if (state == -1) {
+                if (cur == p || cur == q) {
+                    if (found_one_node)
+                        return lca;
+                    else {
+                        found_one_node = true;
+                        lca = cur;
+                    }
+                }
+                sta.push(make_pair(cur, state + 1));
+                if (cur->left != NULL)
+                    sta.push(make_pair(cur->left, -1));
+            }
+            else if (state == 0) {
+                sta.push(make_pair(cur, state + 1));
+                if (cur->right != NULL)
+                    sta.push(make_pair(cur->right, -1));
+            }
+            else {
+                if (lca == cur && found_one_node) {
+                    lca = sta.top().first;
+                }
+            }
+        }
+        return NULL;
 	}
 };
 int main()

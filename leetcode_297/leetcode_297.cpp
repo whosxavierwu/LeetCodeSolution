@@ -1,5 +1,5 @@
 // leetcode_297.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+// https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 /*
 Design an algorithm to serialize and deserialize a binary tree. 
 There is no restriction on how your serialization/deserialization algorithm should work. 
@@ -25,6 +25,7 @@ Your serialize and deserialize algorithms should be stateless.
 
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 struct TreeNode {
@@ -36,15 +37,33 @@ struct TreeNode {
 
 class Codec {
 public:
-
+	// v1  88 ms, faster than 24.50%
 	// Encodes a tree to a single string.
 	string serialize(TreeNode* root) {
-
+		if (root == NULL)
+			return "#";
+		return to_string(root->val) + "," + serialize(root->left) + "," + serialize(root->right);
 	}
 
 	// Decodes your encoded data to tree.
 	TreeNode* deserialize(string data) {
+		if (data == "#")
+			return NULL;
+		stringstream ss(data);
+		return doDeserialize(ss);
+	}
 
+	TreeNode* doDeserialize(stringstream& ss) {
+		string str;
+		getline(ss, str, ',');
+		if (str == "#")
+			return NULL;
+		else {
+			TreeNode* root = new TreeNode(stoi(str));
+			root->left = doDeserialize(ss);
+			root->right = doDeserialize(ss);
+			return root;
+		}
 	}
 };
 

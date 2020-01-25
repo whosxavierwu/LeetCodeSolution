@@ -1,5 +1,5 @@
 // leetcode_124.cpp : This file contains the 'main' function. Program execution begins and ends there.
-// todo https://leetcode.com/problems/binary-tree-maximum-path-sum/
+// https://leetcode.com/problems/binary-tree-maximum-path-sum/
 /*
 Given a non-empty binary tree, find the maximum path sum.
 
@@ -31,6 +31,7 @@ Output: 42
 */
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 struct TreeNode {
@@ -41,9 +42,21 @@ struct TreeNode {
 };
 
 class Solution {
+    int maxValue;
 public:
+    int maxPathDown(TreeNode* root) {
+        // v1 28 ms, faster than 86.39% 
+        if (root == NULL)
+            return 0;
+        int left = max(0, maxPathDown(root->left));
+        int right = max(0, maxPathDown(root->right));
+        maxValue = max(maxValue, left + right + root->val);
+        return max(left, right) + root->val;
+    }
     int maxPathSum(TreeNode* root) {
-
+        maxValue = INT_MIN;
+        maxPathDown(root);
+        return maxValue;
     }
 };
 
