@@ -1,4 +1,4 @@
-// leetcode_146.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// leetcode_146.cpp 
 // https://leetcode.com/problems/lru-cache/
 /*
 Design and implement a data structure for Least Recently Used (LRU) cache. 
@@ -20,42 +20,46 @@ Could you do both operations in O(1) time complexity?
 #include <unordered_map>
 using namespace std;
 
-// v1: faster than 54.14% 
+
 class LRUCache {
-	// key: (value, iter)
-	unordered_map<int, pair<int, list<int>::iterator>> cache;
-	list<int> used;
-	int availCapacity;
-	void touch(unordered_map<int, pair<int, list<int>::iterator>>::iterator iter) {
-		int key = iter->first;
-		used.erase(iter->second.second);
-		used.push_front(key);
-		iter->second.second = used.begin();
+	unordered_map<int, pair<int, list<int>::iterator>> cache;  // key: (value, iter)
+	list<int> keyUsedLog;  // from latest to oldest
+	int maxSize;
+
+	void touch(unordered_map<int, pair<int, list<int>::iterator>>::iterator cacheIter) {
+		int key = cacheIter->first;
+		auto logIter = cacheIter->second.second;
+		keyUsedLog.erase(logIter);
+		keyUsedLog.push_front(key);
+		cacheIter->second.second = keyUsedLog.begin();
 	}
 public:
-	LRUCache(int capacity) : availCapacity(capacity) {
-	}
+	LRUCache(int capacity) : maxSize(capacity) {}
 
 	int get(int key) {
-		auto it = cache.find(key);
-		if (it == cache.end()) return -1;
-		touch(it);
-		return it->second.first;
+		auto cacheIter = cache.find(key);
+		if (cacheIter == cache.end()) 
+			return -1;
+		touch(cacheIter);
+		int value = cacheIter->second.first;
+		return value;
 	}
 
 	void put(int key, int value) {
-		auto iter = cache.find(key);
-		if (iter != cache.end()) touch(iter);
+		auto cacheIter = cache.find(key);
+		if (cacheIter != cache.end()) 
+			touch(cacheIter);
 		else {
-			if (cache.size() == availCapacity) {
-				cache.erase(used.back());
-				used.pop_back();
+			if (cache.size() == maxSize) {
+				cache.erase(keyUsedLog.back());
+				keyUsedLog.pop_back();
 			}
-			used.push_front(key);
+			keyUsedLog.push_front(key);
 		}
-		cache[key] = { value, used.begin() };
+		cache[key] = { value, keyUsedLog.begin() };
 	}
 };
+
 
 /**
  * Your LRUCache object will be instantiated and called as such:
