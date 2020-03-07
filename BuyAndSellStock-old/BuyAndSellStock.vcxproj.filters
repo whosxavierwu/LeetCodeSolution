@@ -18,5 +18,20 @@
     <ClCompile Include="BuyAndSellStock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="leetcode_121.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcode_122.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcode_123.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcode_188.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcode_309.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

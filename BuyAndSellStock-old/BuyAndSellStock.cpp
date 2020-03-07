@@ -1,6 +1,3 @@
-// BuyAndSellStock.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -62,33 +59,22 @@ int maxProfit(int K, vector<int>& prices) {
         return profit;
     }
     vector<int> prevProfitSell(n, 0);
-    int profitBuy = 0, profitSell = 0;
     for (int k = 1; k <= K; ++k) {
-        profitBuy = -prices[0];
+        int profitBuy = -prices[0];
         for (int i = 1; i < n; ++i) {
-            // two types of selling: 1. do nothing; 2. buy before and sell i
-            profitSell = max(prevProfitSell[i - 1], profitBuy + prices[i]);
-            // two types of buying: 1. do nothing; 2. sell before and buy i
-            profitBuy = max(profitBuy, prevProfitSell[i] - prices[i]);
+            int profitSell = max(prevProfitSell[i - 1], profitBuy + prices[i]);
+            profitBuy = max(prevProfitSell[i] - prices[i], profitBuy);
             profit = max(profit, profitSell);
             prevProfitSell[i] = profitSell;
         }
     }
-    return profit;
 }
 
 // https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
 // You may complete as many transactions as you like
 // After you sell your stock, you cannot buy stock on next day
 int maxProfit(vector<int>& prices) {
-    int buy = INT_MIN, sell = 0, prevSell = 0, prevBuy = 0;
-    for (int price : prices) {
-        prevBuy = buy;
-        buy = max(prevSell - price, buy);
-        prevSell = sell;
-        sell = max(prevBuy + price, sell);
-    }
-    return sell;
+
 }
 
 int main()

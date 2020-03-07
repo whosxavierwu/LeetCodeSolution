@@ -36,60 +36,62 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+// recursive version
 class Solution {
-    //TreeNode* lca;
+    TreeNode* lca;
 public:
-    //bool recurseTree(TreeNode* cur, TreeNode* p, TreeNode* q) {
-    //    if (cur == NULL)
-    //        return false;
-    //    int left = recurseTree(cur->left, p, q);
-    //    int right = recurseTree(cur->right, p, q);
-    //    int mid = (cur == p || cur == q);
-    //    if (left + right + mid >= 2)
-    //        lca = cur;
-    //    return (left + right + mid > 0);
-    //}
+    bool isInCurTree(TreeNode* cur, TreeNode* p, TreeNode* q) {
+        if (cur == NULL) return false;
+        bool isInLeft = isInCurTree(cur->left, p, q);
+        bool isInRight = isInCurTree(cur->right, p, q);
+        bool isCurNode = (cur == p || cur == q);
+        if (isInLeft + isInRight + isCurNode >= 2)
+            lca = cur;
+        return isInLeft || isInRight || isCurNode;
+    }
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        isInCurTree(root, p, q);
+        return lca;
+    }
+};
+
+// iterative version
+class Solution {
+public:
 	TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         // v2  20 ms, faster than 76.21%
         stack<pair<TreeNode*, int>> sta;
-        sta.push(make_pair(root, -1));
-        bool found_one_node = false;
+        sta.push(make_pair(root, 0));
+        bool foundOneNode = false;
         TreeNode* lca = NULL;
-        TreeNode* next = NULL;
         while (!sta.empty()) {
             pair<TreeNode*, int> top = sta.top();
             sta.pop();
             TreeNode* cur = top.first;
-            int state = top.second;
-            if (state == -1) {
+            int timesOfVisited = top.second;
+            if (timesOfVisited == 0) {
                 if (cur == p || cur == q) {
-                    if (found_one_node)
+                    if (foundOneNode)
                         return lca;
-                    else {
-                        found_one_node = true;
-                        lca = cur;
-                    }
+                    foundOneNode = true;
+                    lca = cur;
                 }
-                sta.push(make_pair(cur, state + 1));
+                sta.push(make_pair(cur, 1));
                 if (cur->left != NULL)
-                    sta.push(make_pair(cur->left, -1));
+                    sta.push(make_pair(cur->left, 0));
             }
-            else if (state == 0) {
-                sta.push(make_pair(cur, state + 1));
+            else if (timesOfVisited == 1) {
+                // means all nodes in cur->left is visited
+                sta.push(make_pair(cur, 2));
                 if (cur->right != NULL)
-                    sta.push(make_pair(cur->right, -1));
+                    sta.push(make_pair(cur->right, 0));
             }
-            else {
-                if (lca == cur && found_one_node) {
+            else {  // means cur->left & cur->right are visited
+                if (lca == cur && foundOneNode)
                     lca = sta.top().first;
-                }
             }
         }
         return NULL;
-
-        //// v1 36 ms, faster than 11.52% 
-        //recurseTree(root, p, q);
-        //return lca;
 	}
 };
 int main()
