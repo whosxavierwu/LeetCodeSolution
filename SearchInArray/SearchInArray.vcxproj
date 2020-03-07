@@ -147,6 +147,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="leetcode_1.cpp" />
+    <ClCompile Include="leetcode_1157.cpp" />
+    <ClCompile Include="leetcode_136.cpp" />
+    <ClCompile Include="leetcode_15.cpp" />
+    <ClCompile Include="leetcode_169.cpp" />
+    <ClCompile Include="leetcode_215.cpp" />
+    <ClCompile Include="leetcode_229.cpp" />
+    <ClCompile Include="leetcode_287.cpp" />
+    <ClCompile Include="leetcode_33.cpp" />
+    <ClCompile Include="leetcode_34.cpp" />
+    <ClCompile Include="leetcode_347.cpp" />
+    <ClCompile Include="leetcode_4.cpp" />
+    <ClCompile Include="leetcode_41.cpp" />
+    <ClCompile Include="leetcode_448.cpp" />
+    <ClCompile Include="leetcode_704.cpp" />
     <ClCompile Include="SearchInArray.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
