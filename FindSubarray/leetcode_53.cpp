@@ -31,16 +31,24 @@ public:
 	}
 
 	int maxSubArray(vector<int>& nums) {
+		// v3: divide and conquer  faster than 98.89%
+		if (nums.size() == 0) return 0;
+		int lmx, rmx, sum;
+		int result = maxSubArray(nums, 0, nums.size() - 1, lmx, rmx, sum);
+		return result;
+	}
+
+	int maxSubArray(vector<int>& nums) {
 		// v1:  faster than 98.89% 
-		//int len = nums.size();
-		//vector<int> dp(len);  // dp[i] is the max sum of subarray that ends with i;
-		//dp[0] = nums[0];
-		//int max = dp[0];
-		//for (int i = 1; i < len; ++i) {
-		//	dp[i] = nums[i] + (dp[i - 1] > 0 ? dp[i - 1] : 0);
-		//	if (dp[i] > max) max = dp[i];
-		//}
-		//return max;
+		int len = nums.size();
+		vector<int> dp(len);  // dp[i] is the max sum of subarray that ends with i;
+		dp[0] = nums[0];
+		int max = dp[0];
+		for (int i = 1; i < len; ++i) {
+			dp[i] = nums[i] + (dp[i - 1] > 0 ? dp[i - 1] : 0);
+			if (dp[i] > max) max = dp[i];
+		}
+		return max;
 
 		// v2: faster than 76.17%, why is it much slower???
 		//int maxSumEndingPrev = nums[0]; // dp[i] is the max sum of subarray that ends with i;
@@ -51,12 +59,6 @@ public:
 		//	maxSumEndingPrev = cur;
 		//}
 		//return max;
-		
-		// v3: divide and conquer  faster than 98.89%
-		if (nums.size() == 0) return 0;
-		int lmx, rmx, sum;
-		int result = maxSubArray(nums, 0, nums.size() - 1, lmx, rmx, sum);
-		return result;
 	}
 };
 

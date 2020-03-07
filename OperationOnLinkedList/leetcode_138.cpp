@@ -61,32 +61,6 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        //// v1  16 ms, faster than 47.78% 
-        //Node* newHead = NULL;
-        //Node* p1 = NULL;
-        //Node* p2 = NULL;
-        //if (head == NULL) return NULL;
-        //// create new nodes, right after every old node 
-        //for (p1 = head; p1 != NULL; p1 = p1->next->next) {
-        //    p2 = new Node(p1->val);
-        //    p2->next = p1->next;
-        //    p1->next = p2;
-        //}
-        //// copy random pointer
-        //newHead = head->next;
-        //for (p1 = head; p1 != NULL; p1 = p1->next->next) {
-        //    if (p1->random != NULL)
-        //        p1->next->random = p1->random->next;
-        //}
-        //// separate 
-        //for (p1 = head; p1 != NULL; p1 = p1->next) {
-        //    p2 = p1->next;
-        //    p1->next = p2->next;
-        //    if (p2->next != NULL)
-        //        p2->next = p2->next->next;
-        //}
-        //return newHead;
-
         // v2  8 ms, faster than 92.22%
         Node* newHead;
         Node* p1;

@@ -50,10 +50,6 @@ public:
     //    return (left + right + mid > 0);
     //}
 	TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        //// v1 36 ms, faster than 11.52% 
-        //recurseTree(root, p, q);
-        //return lca;
-
         // v2  20 ms, faster than 76.21%
         stack<pair<TreeNode*, int>> sta;
         sta.push(make_pair(root, -1));
@@ -90,6 +86,10 @@ public:
             }
         }
         return NULL;
+
+        //// v1 36 ms, faster than 11.52% 
+        //recurseTree(root, p, q);
+        //return lca;
 	}
 };
 int main()

@@ -16,6 +16,13 @@ struct TreeNode {
 class Solution {
 public:
 	TreeNode* invertTree(TreeNode* root) {
+		// v5: faster than 100.00% 
+		if (!root) return root;
+		TreeNode* tmp = invertTree(root->left);
+		root->left = invertTree(root->right);
+		root->right = tmp;
+		return root;
+
 		// v1: faster than 68.29% 
 		if (root == NULL) return NULL;
 		TreeNode* tmp = (root->left) ? invertTree(root->left) : NULL;
@@ -54,12 +61,7 @@ public:
 		//}
 		//return root;
 
-		// v5: faster than 100.00% 
-		if (!root) return root;
-		TreeNode* tmp = invertTree(root->left);
-		root->left = invertTree(root->right);
-		root->right = tmp;
-		return root;
+		
 	}
 };
 

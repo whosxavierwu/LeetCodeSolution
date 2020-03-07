@@ -67,7 +67,7 @@ public:
 		return doSearch(nums, left, right, target);
 	}
 
-	int doSearch3(vector<int>& nums, int left, int right, int target) {
+	int searchRotatedSortedArray(vector<int>& nums, int left, int right, int target) {
 		while (left <= right && nums[left] >= nums[right]) {
 			int mid = left + (right - left) / 2;
 			if (nums[mid] == target) return mid;
@@ -126,9 +126,9 @@ public:
 		// v2: 4 ms, faster than 80.09%
 		//return doSearch(nums, 0, nums.size() - 1, target);
 		// v3:  4 ms, faster than 80.09%
-		//return doSearch3(nums, 0, nums.size() - 1, target);
+		return searchRotatedSortedArray(nums, 0, nums.size() - 1, target);
 		// v4: 4 ms, faster than 80.09%
-		return doSearch4(nums, 0, nums.size() - 1, target);
+		//return doSearch4(nums, 0, nums.size() - 1, target);
 	}
 };
 int main()

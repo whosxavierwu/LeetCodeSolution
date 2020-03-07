@@ -3,8 +3,6 @@
 // Given a linked list, determine if it has a cycle in it.
 // Can you solve it using O(1) (i.e. constant) memory?
 
-
-
 #include <iostream>
 
 struct ListNode {

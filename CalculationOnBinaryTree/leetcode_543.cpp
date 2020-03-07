@@ -37,28 +37,6 @@ public:
 	}
 
 	int diameterOfBinaryTree(TreeNode* root) {
-		// v1: faster than 25.22% 
-		//if (!root) return 0;
-		//stack<TreeNode*> sta;
-		//sta.push(root);
-		//int maxDiameter = 0;
-		//while (!sta.empty()) {
-		//	TreeNode* tmp = sta.top();
-		//	sta.pop();
-		//	int diameter = 0;
-		//	if (tmp->right) {
-		//		diameter += maxDepth(tmp->right);
-		//		sta.push(tmp->right);
-		//	}
-		//	if (tmp->left) {
-		//		diameter += maxDepth(tmp->left);
-		//		sta.push(tmp->left);
-		//	}
-		//	if (diameter > maxDiameter)
-		//		maxDiameter = diameter;
-		//}
-		//return maxDiameter;
-
 		// v2 faster than 74.11% 
 		if (!root) return 0;
 		int result = 0;

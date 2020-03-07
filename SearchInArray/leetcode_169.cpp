@@ -12,6 +12,20 @@ using namespace std;
 class Solution {
 public:
 	int majorityElement(vector<int>& nums) {
+		int count = 0;
+		int key = 0;
+		int len = nums.size();
+		for (int i = 0; i < len; i++) {
+			if (count == 0)
+				// 意味着前面遍历过的数列里面 正好key出现了一半 并且被反对了一半 
+				// 这时候可以直接忽略前面的数据 无论key是不是正确的
+				// 假如不是 那么都是在少数里面砍掉数据 正解还是占多数
+				// 假如是 那么两边势力同时去掉相同数量 正解依旧不变
+				key = nums[i];
+			count += (nums[i] == key) ? 1 : -1;
+		}
+		return key;
+
 		// version 1: sort
 		//sort(nums.begin(), nums.end());
 		//int len = nums.size();
@@ -64,22 +78,6 @@ public:
 		//		nums_tmp = nums_smaller;
 		//}
 		//return nums[0];
-
-		// ersion 4: this algo seems really cool, but performs like version 3
-		int count = 0; 
-		int key = 0; 
-		int len = nums.size();
-		for (int i = 0; i < len; i++) {
-			if (count == 0)
-				// 意味着前面遍历过的数列里面 正好key出现了一半 并且被反对了一半 
-				// 这时候可以直接忽略前面的数据 无论key是不是正确的
-				// 假如不是 那么都是在少数里面砍掉数据 正解还是占多数
-				// 假如是 那么两边势力同时去掉相同数量 正解依旧不变
-				key = nums[i];
-			count += (nums[i] == key) ? 1 : -1;
-		}
-		return key;
-
 	}
 };
 //

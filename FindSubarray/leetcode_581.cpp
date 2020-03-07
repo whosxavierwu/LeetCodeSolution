@@ -20,6 +20,29 @@ using namespace std;
 class Solution {
 public:
 	int findUnsortedSubarray(vector<int>& nums) {
+		// v2 faster than 93.17% 
+		int len = nums.size();
+		if (len <= 1) return 0;
+		if (len == 2) return (nums[0] > nums[1]) ? 2 : 0;
+		int left = 0, right = len - 1;
+		while (left < len - 1 && nums[left] <= nums[left + 1])
+			++left;
+		while (right > 0 && nums[right - 1] <= nums[right])
+			--right;
+		if (left > right) return 0;
+		int min = nums[left], max = nums[right];
+		for (int i = left; i <= right; ++i) {
+			if (nums[i] < min) min = nums[i];
+			if (nums[i] > max) max = nums[i];
+		}
+		left = 0;
+		while (left < len - 1 && nums[left] <= min)
+			++left;
+		right = len - 1;
+		while (right > 0 && max <= nums[right])
+			--right;
+		return right - left + 1;
+
 		// v1: burte force  faster than 5.08%
 		//int len = nums.size();
 		//int left = 0;
@@ -50,29 +73,6 @@ public:
 		//}
 		//if (left > right) return 0;
 		//return right - left + 1;
-
-		// v2 faster than 93.17% 
-		int len = nums.size();
-		if (len <= 1) return 0;
-		if (len == 2) return (nums[0] > nums[1]) ? 2 : 0;
-		int left = 0, right = len - 1;
-		while (left < len - 1 && nums[left] <= nums[left + 1])
-			++left;
-		while (right > 0 && nums[right - 1] <= nums[right])
-			--right;
-		if (left > right) return 0;
-		int min = nums[left], max = nums[right];
-		for (int i = left; i <= right; ++i) {
-			if (nums[i] < min) min = nums[i];
-			if (nums[i] > max) max = nums[i];
-		}
-		left = 0;
-		while (left < len - 1 && nums[left] <= min)
-			++left;
-		right = len - 1;
-		while (right > 0 && max <= nums[right])
-			--right;
-		return right - left + 1;
 	}
 };
 

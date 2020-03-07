@@ -38,17 +38,19 @@ public:
 		path.pop_back();
 	}
 	vector<vector<int>> pathSum(TreeNode* root, int sum) {
+		// v2 faster than 71.36%
+		vector<vector<int>> result;
+		vector<int> cur;
+		findPaths(root, sum, cur, result);
+		return result;
+
 		//// v1: faster than 33.32%
 		//vector<vector<int>> result;
 		//vector<int> cur;
 		//pathSum(root, sum, result, cur);
 		//return result;
 
-		// v2 faster than 71.36%
-		vector<vector<int>> result;
-		vector<int> cur;
-		findPaths(root, sum, cur, result);
-		return result;
+		
 	}
 };
 int main()

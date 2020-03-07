@@ -22,7 +22,8 @@ public:
 		if (!root) return false;
 		if (root->left == NULL && root->right == NULL)
 			return root->val == sum;
-		return hasPathSum(root->left, sum - root->val) | hasPathSum(root->right, sum - root->val);
+		return hasPathSum(root->left, sum - root->val) 
+			| hasPathSum(root->right, sum - root->val);
 	}
 };
 

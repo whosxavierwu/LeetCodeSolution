@@ -21,7 +21,6 @@ public:
 			return true;
 		if (head->next != NULL && head->next->next == NULL)
 			return head->val == head->next->val;
-
 		// step1 & step2, find out the med point
 		ListNode* step1 = head;
 		ListNode* step2 = head;
@@ -42,7 +41,6 @@ public:
 				break;
 			}
 		}
-
 		// reverse the first half
 		ListNode* newHead = NULL;
 		ListNode* cur = head;
@@ -52,7 +50,6 @@ public:
 			newHead = cur;
 			cur = tmp;
 		}
-
 		// compare two list
 		while (newHead != NULL && head2 != NULL) {
 			if (newHead->val != head2->val)

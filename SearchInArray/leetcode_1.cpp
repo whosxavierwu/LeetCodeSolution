@@ -1,24 +1,23 @@
 // leetcode_1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// https://leetcode.com/problems/two-sum
 
 
 #include <iostream>
-#include<vector>
+#include <vector>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 	vector<int> twoSum(vector<int>& nums, int target) {
-		int len = nums.size();
-		for (int i = 0; i < len; i++) {
+		unordered_map<int, int> idxMap;
+		for (int i = 0; i < nums.size(); ++i) {
 			int residual = target - nums[i];
-			for (int j = i + 1; j < len; j++) {
-				if (nums[j] == residual) {
-					vector<int> result = { i, j };
-					return result;
-				}
+			if (idxMap.find(residual) != idxMap.end()) {
+				return { idxMap[residual], i};
 			}
+			idxMap[nums[i]] = i;
 		}
-		return vector<int>(2);
+		return { -1, -1 };
 	}
 };
 

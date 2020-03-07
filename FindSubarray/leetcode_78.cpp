@@ -27,11 +27,17 @@ public:
 		result.insert(result.end(), tmp.begin(), tmp.end());
 	}
 	vector<vector<int>> subsets(vector<int>& nums) {
-		// v1 faster than 62.42%
-		//if (nums.empty()) return { {} };
-		//vector<vector<int>> result;
-		//findSubsets(nums, nums.size() - 1, result);
-		//return result;
+		// v3 faster than 62.42%
+		int n = nums.size(), p = 1 << n;
+		vector<vector<int>> subs(p);
+		for (int i = 0; i < p; i++) {
+			for (int j = 0; j < n; j++) {
+				if ((i >> j) & 1) {
+					subs[i].push_back(nums[j]);
+				}
+			}
+		}
+		return subs;
 
 		// v2 faster than 62.42% 
 		//if (nums.empty()) return { {} };
@@ -45,17 +51,11 @@ public:
 		//}
 		//return result;
 
-		// v3 faster than 62.42%
-		int n = nums.size(), p = 1 << n;
-		vector<vector<int>> subs(p);
-		for (int i = 0; i < p; i++) {
-			for (int j = 0; j < n; j++) {
-				if ((i >> j) & 1) {  // &1 means taking the last bit only
-					subs[i].push_back(nums[j]);
-				}
-			}
-		}
-		return subs;
+		// v1 faster than 62.42%
+		//if (nums.empty()) return { {} };
+		//vector<vector<int>> result;
+		//findSubsets(nums, nums.size() - 1, result);
+		//return result;
 	}
 };
 

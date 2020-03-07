@@ -24,16 +24,6 @@ public:
 class Solution {
 public:
 	vector<int> preorder(Node* root) {
-		//// recursive: faster than 23.46% 
-		//vector<int> result;
-		//if (root == NULL) return result;
-		//result.push_back(root->val);
-		//for (Node* child : root->children) {
-		//	vector<int> tmp = preorder(child);
-		//	result.insert(result.end(), tmp.begin(), tmp.end());
-		//}
-		//return result;
-
 		// iterative: faster than 96.73%
 		vector<int> result;
 		if (root == NULL) return result;
@@ -47,6 +37,16 @@ public:
 				sta.push(tmp->children[i]);
 		}
 		return result;
+
+		//// recursive: faster than 23.46% 
+		//vector<int> result;
+		//if (root == NULL) return result;
+		//result.push_back(root->val);
+		//for (Node* child : root->children) {
+		//	vector<int> tmp = preorder(child);
+		//	result.insert(result.end(), tmp.begin(), tmp.end());
+		//}
+		//return result;
 	}
 };
 

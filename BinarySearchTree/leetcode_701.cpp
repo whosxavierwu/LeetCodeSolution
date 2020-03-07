@@ -22,6 +22,22 @@ struct TreeNode {
 class Solution {
 public:
 	TreeNode* insertIntoBST(TreeNode* root, int val) {
+		// v3: faster than 73.03% 
+		if (root == NULL)
+			return new TreeNode(val);
+		if (val < root->val)
+			root->left = insertIntoBST(root->left, val);
+		else
+			root->right = insertIntoBST(root->right, val);
+		return root;
+
+		// v4: faster than 73.03%
+		TreeNode** cur = &root;
+		while (*cur)
+			cur = (val > (*cur)->val) ? &(*cur)->right : &(*cur)->left;
+		*cur = new TreeNode(val);
+		return root;
+
 		//// v1: recursive faster than 10.87% 
 		//TreeNode* tmp = new TreeNode(val);
 		//if (val < root->val) {
@@ -63,21 +79,11 @@ public:
 		//}
 		//return root;
 
-		//// v3: faster than 73.03% 
-		//if (root == NULL)
-		//	return new TreeNode(val);
-		//if (val < root->val)
-		//	root->left = insertIntoBST(root->left, val);
-		//else 
-		//	root->right = insertIntoBST(root->right, val);
-		//return root;
+		
 
-		// v4: faster than 73.03%
-		TreeNode** cur = &root;
-		while (*cur)
-			cur = (val > (*cur)->val) ? &(*cur)->right : &(*cur)->left;
-		*cur = new TreeNode(val);
-		return root;
+		
+
+		
 	}
 };
 

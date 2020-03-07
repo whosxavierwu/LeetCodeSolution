@@ -26,16 +26,6 @@ public:
 class Solution {
 public:
 	vector<int> postorder(Node* root) {
-		//// recursive: faster than 27.97%
-		//vector<int> result; 
-		//if (root == NULL) return result;
-		//for (Node* child : root->children) {
-		//	vector<int> tmp = postorder(child);
-		//	result.insert(result.end(), tmp.begin(), tmp.end());
-		//}
-		//result.push_back(root->val);
-		//return result;
-
 		// iterative: faster than 72.56% 
 		vector<int> result;
 		if (root == NULL) return result;
@@ -50,6 +40,16 @@ public:
 		}
 		reverse(result.begin(), result.end());
 		return result;
+
+		//// recursive: faster than 27.97%
+		//vector<int> result; 
+		//if (root == NULL) return result;
+		//for (Node* child : root->children) {
+		//	vector<int> tmp = postorder(child);
+		//	result.insert(result.end(), tmp.begin(), tmp.end());
+		//}
+		//result.push_back(root->val);
+		//return result;
 
 		// iterative v2: faster than 72.56% too...
 		//vector<int> result;

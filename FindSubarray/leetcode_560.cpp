@@ -16,18 +16,6 @@ using namespace std;
 class Solution {
 public:
 	int subarraySum(vector<int>& nums, int k) {
-		// v1: faster than 18.47% 
-		//int len = nums.size();
-		//int result = 0;
-		//for (int i = 0; i < len; ++i) {
-		//	for (int j = i, sum = 0; j < len; ++j) {
-		//		sum += nums[j];
-		//		if (sum == k)
-		//			++result;
-		//	}
-		//}
-		//return result;
-
 		// v2:faster than 89.75% 
 		unordered_map<int, int> mmap;
 		int count = 0, sum = 0, len = nums.size();
@@ -39,6 +27,18 @@ public:
 			mmap[sum] += 1;
 		}
 		return count;
+
+		// v1: faster than 18.47% 
+		//int len = nums.size();
+		//int result = 0;
+		//for (int i = 0; i < len; ++i) {
+		//	for (int j = i, sum = 0; j < len; ++j) {
+		//		sum += nums[j];
+		//		if (sum == k)
+		//			++result;
+		//	}
+		//}
+		//return result;
 	}
 };
 
