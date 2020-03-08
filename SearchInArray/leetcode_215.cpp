@@ -28,20 +28,20 @@ public:
 class Solution {
 	int partition(vector<int>& nums, int left, int right) {
 		int pivot = nums[left];
-		int l = left + 1, r = right;
-		while (l <= r) {
-			if (nums[l] < pivot && nums[r] > pivot) {
-				swap(nums[l], nums[r]);
-				++l;
-				--r;
+		int unsplitedLeft = left + 1, unsplitedRight = right;
+		while (unsplitedLeft <= unsplitedRight) {
+			if (nums[unsplitedLeft] < pivot && nums[unsplitedRight] > pivot) {
+				swap(nums[unsplitedLeft], nums[unsplitedRight]);
+				++unsplitedLeft;
+				--unsplitedRight;
 			}
-			if (nums[l] >= pivot)
-				++l;
-			if (nums[r] <= pivot)
-				--r;
+			if (nums[unsplitedLeft] >= pivot)
+				++unsplitedLeft;
+			if (nums[unsplitedRight] <= pivot)
+				--unsplitedRight;
 		}
-		swap(nums[left], nums[r]);
-		return r;
+		swap(nums[left], nums[unsplitedRight]);
+		return unsplitedRight;
 	}
 public:
 	int findKthLargest(vector<int>& nums, int k) {
