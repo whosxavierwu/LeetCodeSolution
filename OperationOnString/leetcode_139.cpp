@@ -74,7 +74,3 @@ public:
 		return isGoodString[s.length()];
 	}
 };
-int main()
-{
-    std::cout << "Hello World!\n";
-}
