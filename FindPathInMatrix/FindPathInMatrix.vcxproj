@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{D05F5035-E421-4C18-9CCD-F97BE88A9C51}</ProjectGuid>
+    <ProjectGuid>{BAD6F75A-0342-453A-A8E8-998DFDCC3BEF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OperationOnString</RootNamespace>
+    <RootNamespace>FindPathInMatrix</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,10 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="leetcode_139.cpp" />
-    <ClCompile Include="leetcode_140.cpp" />
-    <ClCompile Include="leetcode_344.cpp" />
-    <ClCompile Include="OperationOnString.cpp" />
+    <ClCompile Include="FindPathInMatrix.cpp" />
+    <ClCompile Include="leetcode_212.cpp" />
+    <ClCompile Include="leetcode_62.cpp" />
+    <ClCompile Include="leetcode_64.cpp" />
+    <ClCompile Include="leetcode_79.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,16 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OperationOnString.cpp">
+    <ClCompile Include="FindPathInMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="leetcode_139.cpp">
+    <ClCompile Include="leetcode_62.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="leetcode_344.cpp">
+    <ClCompile Include="leetcode_64.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="leetcode_140.cpp">
+    <ClCompile Include="leetcode_79.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcode_212.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
