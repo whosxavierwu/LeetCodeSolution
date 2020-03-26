@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <stack>
 using namespace std;
 
 struct TreeNode {
@@ -97,7 +98,31 @@ int maxRouteSum(TreeNode* root) {
     return maxValue;
 }
 
-// todo  https://leetcode.com/problems/sum-root-to-leaf-numbers/
+//  https://leetcode.com/problems/sum-root-to-leaf-numbers/
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        if (!root) return 0;
+        stack<pair<TreeNode*, int>> sta;
+        sta.push({ root, 0 });
+        int result = 0;
+        while (!sta.empty()) {
+            TreeNode* cur = sta.top().first;
+            int prevSum = sta.top().second;
+            sta.pop();
+            if (cur->left || cur->right) {
+                if (cur->left)
+                    sta.push({ cur->left, 10 * prevSum + cur->val });
+                if (cur->right)
+                    sta.push({ cur->right, 10 * prevSum + cur->val });
+            }
+            else {
+                result += 10 * prevSum + cur->val;
+            }
+        }
+        return result;
+    }
+};
 
 int main()
 {
