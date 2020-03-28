@@ -42,16 +42,16 @@ public:
 		return prevRow[m - 1];
 
 		// v3 faster than 100.00%, less than 48.68%
-		if (m == 1 || n == 1) return 1;
-		vector<int> prevRow(m, 1);
-		vector<int> curRow(m, 1);
-		for (int r = 1; r < n; ++r) {
-			curRow[0] = 1;
-			for (int c = 1; c < m; ++c)
-				curRow[c] = prevRow[c] + curRow[c - 1];
-			prevRow = curRow;
-		}
-		return curRow[m - 1];
+		//if (m == 1 || n == 1) return 1;
+		//vector<int> prevRow(m, 1);
+		//vector<int> curRow(m, 1);
+		//for (int r = 1; r < n; ++r) {
+		//	curRow[0] = 1;
+		//	for (int c = 1; c < m; ++c)
+		//		curRow[c] = prevRow[c] + curRow[c - 1];
+		//	prevRow = curRow;
+		//}
+		//return curRow[m - 1];
 
 		// v1: TLE
 		//if (m == 1 || n == 1) return 1;
