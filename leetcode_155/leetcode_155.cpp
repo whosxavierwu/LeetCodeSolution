@@ -23,6 +23,7 @@ minStack.getMin();   --> Returns -2.
 #include <iostream>
 #include <stack>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 // v1: faster than 18.78%
@@ -61,38 +62,64 @@ using namespace std;
 //	}
 //};
 
-// v2: faster than 98.40%
-struct MyStackNode {
-	int val;
-	int min;
-	MyStackNode(int v, int m): val(v), min(m) {}
-};
+//// v2: faster than 98.40%
+//struct MyStackNode {
+//	int val;
+//	int min;
+//	MyStackNode(int v, int m): val(v), min(m) {}
+//};
+//class MinStack {
+//	stack<MyStackNode> sta;
+//public:
+//	/** initialize your data structure here. */
+//	MinStack() {
+//	}
+//
+//	void push(int x) {
+//		int min = INT_MAX;
+//		if (!sta.empty())
+//			min = fmin(sta.top().min, sta.top().val);
+//		MyStackNode tmp(x, min);
+//		sta.push(tmp);
+//	}
+//
+//	void pop() {
+//		sta.pop();
+//	}
+//
+//	int top() {
+//		return sta.top().val;
+//	}
+//
+//	int getMin() {
+//		return fmin(sta.top().val, sta.top().min);
+//	}
+//};
+
 class MinStack {
-	stack<MyStackNode> sta;
+    vector<pair<int, int>> sta;
 public:
-	/** initialize your data structure here. */
-	MinStack() {
-	}
+    /** initialize your data structure here. */
+    MinStack() {
 
-	void push(int x) {
-		int min = INT_MAX;
-		if (!sta.empty())
-			min = fmin(sta.top().min, sta.top().val);
-		MyStackNode tmp(x, min);
-		sta.push(tmp);
-	}
+    }
 
-	void pop() {
-		sta.pop();
-	}
+    void push(int x) {
+        int prev_min = sta.empty() ? x : sta.back().second;
+        sta.push_back({ x, min(prev_min, x) });
+    }
 
-	int top() {
-		return sta.top().val;
-	}
+    void pop() {
+        sta.pop_back();
+    }
 
-	int getMin() {
-		return fmin(sta.top().val, sta.top().min);
-	}
+    int top() {
+        return sta.back().first;
+    }
+
+    int getMin() {
+        return sta.back().second;
+    }
 };
 
 
