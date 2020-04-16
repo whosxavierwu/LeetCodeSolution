@@ -89,20 +89,3 @@ public:
 	}
 };
 
-
-int main()
-{
-	Solution sol;
-	string s = "";
-	//s = "(()";
-	//cout << sol.longestValidParentheses(s) << endl;
-	//s = ")()())";
-	//cout << sol.longestValidParentheses(s) << endl;
-	//s = "(())()(()((";
-	//cout << sol.longestValidParentheses(s) << endl;
-	//s = "(()(((()";
-	//cout << sol.longestValidParentheses(s) << endl;
-	s = "(()()";
-	cout << sol.longestValidParentheses(s) << endl;
-	return 0;
-}

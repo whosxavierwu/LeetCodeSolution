@@ -2,8 +2,13 @@
 //
 
 #include <iostream>
+#include <string>
+#include "leetcode_678.cpp"
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    string s = "(())((())()()(*)(*()(())())())()()((()())((()))(*";
+    Solution sol;
+    cout << sol.checkValidString(s) << endl;
 }
