@@ -9,24 +9,22 @@ using namespace std;
 
 class Solution {
 public:
-	int binarySearch(vector<int>& nums, int start, int end, int target) {
-		int mid = start;
-		while (start <= end) {
-			mid = (start + end) / 2;
-			if (nums[mid] == target)
-				return mid;
-			else if (nums[mid] < target)
-				start = mid + 1;
-			else
-				end = mid - 1;
-		}
-		return -1;
-	}
+    int binarySearch(const vector<int>& nums, int start, int end, const int& target) {
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == target)
+                return mid;
+            else if (nums[mid] < target)
+                start = mid + 1;
+            else
+                end = mid - 1;
+        }
+        return -1;
+    }
 
-	int search(vector<int>& nums, int target) {
-		int len = nums.size();
-		return binarySearch(nums, 0, len - 1, target);
-	}
+    int search(vector<int>& nums, int target) {
+        return binarySearch(nums, 0, nums.size() - 1, target);
+    }
 };
 
 int main()
