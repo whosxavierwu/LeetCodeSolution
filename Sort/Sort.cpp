@@ -26,6 +26,7 @@ public:
         quickSort(nums, left, pivotIdx - 1);
         quickSort(nums, pivotIdx + 1, right);
     }
+
     /* mergeSort */
     void merge(vector<int>& nums, int left, int mid, int right) {
         vector<int> tmp;

@@ -24,25 +24,25 @@ using namespace std;
 
 class Solution {
 public:
-	int lengthOfLIS(vector<int>& nums) {
-		// v3: 0 ms, faster than 100.00%
-		vector<int> vec;
-		int len = nums.size();
-		for (int i = 0; i < len; ++i) {
-			auto iter = lower_bound(vec.begin(), vec.end(), nums[i]);
-			if (iter == vec.end())
-				vec.push_back(nums[i]);
-			else
-				*iter = nums[i];
-		}
-		return vec.size();
-	}
+    int lengthOfLIS(vector<int>& nums) {
+        // v3: 0 ms, faster than 100.00%
+        vector<int> vec;
+        int len = nums.size();
+        for (int i = 0; i < len; ++i) {
+            auto iter = lower_bound(vec.begin(), vec.end(), nums[i]);
+            if (iter == vec.end())
+                vec.push_back(nums[i]);
+            else
+                *iter = nums[i];
+        }
+        return vec.size();
+    }
 };
 
 int main()
 {
-	vector<int> nums = { 10,9,2,5,3,7,101,18 };
-	Solution sol;
-	vector<int> result = sol.lengthOfLIS(nums);
-	return 0;
+    vector<int> nums = { 10,9,2,5,3,7,101,18 };
+    Solution sol;
+    vector<int> result = sol.lengthOfLIS(nums);
+    return 0;
 }

@@ -19,22 +19,23 @@ using namespace std;
 
 class Solution {
 public:
-	vector<vector<int>> merge(vector<vector<int>>& intervals) {
-		// 16 ms, faster than 93.93% 
-		sort(intervals.begin(), intervals.end(), [](vector<int>& a, vector<int>& b) {return a[0] < b[0]; });
-		vector<vector<int>> result;
-		for (vector<int>& interval : intervals) {
-			if (result.empty() || result.back()[1] < interval[0]) {
-				result.push_back(interval);
-			}
-			else {
-				int len = result.size();
-				result[len - 1][1] = max(result[len - 1][1], interval[1]);
-			}
-		}
-		return result;
-	}
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        // 16 ms, faster than 93.93% 
+        sort(intervals.begin(), intervals.end(), [](vector<int>& a, vector<int>& b) {return a[0] < b[0]; });
+        vector<vector<int>> result;
+        for (vector<int>& interval : intervals) {
+            if (result.empty() || result.back()[1] < interval[0]) {
+                result.push_back(interval);
+            }
+            else {
+                int len = result.size();
+                result[len - 1][1] = max(result[len - 1][1], interval[1]);
+            }
+        }
+        return result;
+    }
 };
+
 int main()
 {
     std::cout << "Hello World!\n";
